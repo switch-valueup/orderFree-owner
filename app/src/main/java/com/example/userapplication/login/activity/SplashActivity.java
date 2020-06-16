@@ -1,8 +1,10 @@
-package com.example.userapplication;
+package com.example.userapplication.login.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.userapplication.login.activity.MainActivity;
 
 public class SplashActivity extends Activity {
     @Override
