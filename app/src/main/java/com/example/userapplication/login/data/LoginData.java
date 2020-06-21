@@ -3,14 +3,14 @@ package com.example.userapplication.login.data;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginData {
-    @SerializedName("userEmail")
-    String userEmail;
+    @SerializedName("userID")
+    String userID;
 
     @SerializedName("userPwd")
     String userPwd;
 
-    public LoginData(String userEmail, String userPwd){
-        this.userEmail=userEmail;
+    public LoginData(String userID, String userPwd){
+        this.userID=userID;
         this.userPwd=userPwd;
     }
 }
