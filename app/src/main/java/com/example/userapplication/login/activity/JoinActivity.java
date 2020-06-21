@@ -3,12 +3,10 @@ package com.example.userapplication.login.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +22,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class JoinActivity extends AppCompatActivity {
-    private AutoCompleteTextView mEmailView;
+    //private AutoCompleteTextView mEmailView;
+    private EditText mIdView;
     private EditText mPasswordView;
+    private EditText mEmailView;
     private EditText mNameView;
+    private EditText mPhoneNumberView;
+
     private Button mJoinButton;
     private ProgressBar mProgressView;
     private ServiceApi service;
@@ -34,11 +36,13 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join);
+        setContentView(R.layout.join);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.join_email);
+        mIdView = (EditText) findViewById(R.id.join_id);
         mPasswordView = (EditText) findViewById(R.id.join_password);
+        mEmailView = (EditText) findViewById(R.id.join_email);
         mNameView = (EditText) findViewById(R.id.join_name);
+        mPhoneNumberView =(EditText) findViewById(R.id.join_phone_number);
         mJoinButton = (Button) findViewById(R.id.join_button);
         mProgressView = (ProgressBar) findViewById(R.id.join_progress);
 
@@ -53,16 +57,32 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     private void attemptJoin() {
-        mNameView.setError(null);
-        mEmailView.setError(null);
+        mIdView.setError(null);
         mPasswordView.setError(null);
+        mEmailView.setError(null);
+        mNameView.setError(null);
+        mPhoneNumberView.setError(null);
 
-        String name = mNameView.getText().toString();
-        String email = mEmailView.getText().toString();
+
+        String id = mIdView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String email = mEmailView.getText().toString();
+        String name = mNameView.getText().toString();
+        String phone_number = mPhoneNumberView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
+
+        // 아이디의 유효성 검사
+        if (id.isEmpty()) {
+            mIdView.setError("아이디를 입력해주세요.");
+            focusView = mIdView;
+            cancel = true;
+        } else if (!isIdValid(id)) {
+            mIdView.setError("4자 이상 20자 이하의 아이디를 입력해주세요.");
+            focusView = mIdView;
+            cancel = true;
+        }
 
         // 패스워드의 유효성 검사
         if (password.isEmpty()) {
@@ -70,7 +90,7 @@ public class JoinActivity extends AppCompatActivity {
             focusView = mEmailView;
             cancel = true;
         } else if (!isPasswordValid(password)) {
-            mPasswordView.setError("6자 이상의 비밀번호를 입력해주세요.");
+            mPasswordView.setError("8자 이상 20자 이하 비밀번호를 입력해주세요.");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -93,10 +113,21 @@ public class JoinActivity extends AppCompatActivity {
             cancel = true;
         }
 
+        // 전화번호의 유효성 검사
+        if (phone_number.isEmpty()) {
+            mPhoneNumberView.setError("전화번호를 입력해주세요.");
+            focusView = mPhoneNumberView;
+            cancel = true;
+        } else if (!isPhoneNumberValid(phone_number)) {
+            mPhoneNumberView.setError(" -을 제외한 10자리 혹은 11자리 전화번호를 입력해주세요.");
+            focusView = mPhoneNumberView;
+            cancel = true;
+        }
+
         if (cancel) {
             focusView.requestFocus();
         } else {
-            startJoin(new JoinData(name, email, password));
+            startJoin(new JoinData(id, password, email, name, phone_number));
             showProgress(true);
         }
     }
@@ -123,12 +154,21 @@ public class JoinActivity extends AppCompatActivity {
         });
     }
 
+
+    private boolean isIdValid(String id) {
+        return (id.length() >= 4 && id.length() <= 20);
+    }
+
+    private boolean isPasswordValid(String password) {
+        return (password.length() >= 8 && password.length() <= 20);
+    }
+
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() >= 6;
+    private boolean isPhoneNumberValid(String phonenumber) {
+        return ( (phonenumber.length()==(int)11) || (phonenumber.length() ==(int)10) ) ;
     }
 
     private void showProgress(boolean show) {
