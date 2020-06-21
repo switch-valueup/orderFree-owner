@@ -23,9 +23,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    private AutoCompleteTextView mEmailView;
+    //private AutoCompleteTextView mEmailView;
+    private EditText mIDView;
     private EditText mPasswordView;
-    private Button mEmailLoginButton;
+    private Button mLoginButton;
+    private Button mFindIdPassword;
     private Button mJoinButton;
     private ProgressBar mProgressView;
     private ServiceApi service;
@@ -33,16 +35,18 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.login_email);
+        setContentView(R.layout.layout);
+
+        mIDView = (EditText) findViewById(R.id.login_id);
         mPasswordView = (EditText) findViewById(R.id.login_password);
-        mEmailLoginButton = (Button) findViewById(R.id.login_button);
+        mLoginButton = (Button) findViewById(R.id.login_button);
+        mFindIdPassword = (Button) findViewById(R.id.find_id_password);
         mJoinButton = (Button) findViewById(R.id.join_button);
         mProgressView = (ProgressBar) findViewById(R.id.login_progress);
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
-        mEmailLoginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -58,41 +62,37 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        mEmailView.setError(null);
+        mIDView.setError(null);
         mPasswordView.setError(null);
 
-        String email = mEmailView.getText().toString();
+        String id = mIDView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // 패스워드의 유효성 검사
-        if (password.isEmpty()) {
-            mEmailView.setError("비밀번호를 입력해주세요.");
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isPasswordValid(password)) {
-            mPasswordView.setError("6자 이상의 비밀번호를 입력해주세요.");
-            focusView = mPasswordView;
+        // 아이디의 유효성 검사
+        if (id.isEmpty()) {
+            mIDView.setError("아이디를 입력해주세요.");
+            focusView = mIDView;
             cancel = true;
         }
 
-        // 이메일의 유효성 검사
-        if (email.isEmpty()) {
-            mEmailView.setError("이메일을 입력해주세요.");
-            focusView = mEmailView;
+        // 패스워드의 유효성 검사
+        if (password.isEmpty()) {
+            mPasswordView.setError("비밀번호를 입력해주세요.");
+            focusView = mPasswordView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError("@를 포함한 유효한 이메일을 입력해주세요.");
-            focusView = mEmailView;
+        } else if (!isPasswordValid(password)) {
+            mPasswordView.setError("8자 이상 20자 이하의 비밀번호를 입력해주세요.");
+            focusView = mPasswordView;
             cancel = true;
         }
 
         if (cancel) {
             focusView.requestFocus();
         } else {
-            startLogin(new LoginData(email, password));
+            startLogin(new LoginData(id, password));
             showProgress(true);
         }
     }
@@ -115,12 +115,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isEmailValid(String email) {
-        return email.contains("@");
-    }
+    //private boolean isEmailValid(String email) {return email.contains("@");}
 
     private boolean isPasswordValid(String password) {
-        return password.length() >= 6;
+        return ((password.length() >= 8) && (password.length()<=20));
     }
 
     private void showProgress(boolean show) {
