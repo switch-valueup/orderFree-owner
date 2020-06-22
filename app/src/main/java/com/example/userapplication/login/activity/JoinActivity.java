@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.userapplication.R;
+import com.example.userapplication.login.data.JoinAvailable;
+import com.example.userapplication.login.data.JoinAvailableResponse;
 import com.example.userapplication.login.data.JoinData;
 import com.example.userapplication.login.data.JoinResponse;
 import com.example.userapplication.login.network.RetrofitClient;
@@ -30,16 +32,18 @@ public class JoinActivity extends AppCompatActivity {
     private EditText mNameView;
     private EditText mPhoneNumberView;
 
+    private Button mEmailAvailableButton;
     private Button mJoinButton;
     private ProgressBar mProgressView;
     private ServiceApi service;
-
+    boolean emailAvailable =false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
-        mIdView = (EditText) findViewById(R.id.join_id);
+        //mIdView = (EditText) findViewById(R.id.join_id);
+        mEmailAvailableButton =(Button) findViewById(R.id.join_id_available);
         mPasswordView = (EditText) findViewById(R.id.join_password);
         mEmailView = (EditText) findViewById(R.id.join_email);
         mNameView = (EditText) findViewById(R.id.join_name);
@@ -49,6 +53,13 @@ public class JoinActivity extends AppCompatActivity {
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
+        mEmailAvailableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                emailAvailable();
+            }
+        });
+
         mJoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,31 +68,52 @@ public class JoinActivity extends AppCompatActivity {
         });
     }
 
+    private void emailAvailable(){
+        String email = mEmailView.getText().toString();
+        boolean cancel = false;
+        View focusView = null;
+
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            mEmailView.setError("이메일을 입력해주세요.");
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = mEmailView;
+            cancel = true;
+        }
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            startEmailAvailable(new JoinAvailable(email));
+            showProgress(true);
+        }
+    }
+
+
     private void attemptJoin() {
-        mIdView.setError(null);
-        mPasswordView.setError(null);
         mEmailView.setError(null);
+        mPasswordView.setError(null);
         mNameView.setError(null);
         mPhoneNumberView.setError(null);
 
-
-        String id = mIdView.getText().toString();
-        String password = mPasswordView.getText().toString();
         String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
         String name = mNameView.getText().toString();
         String phone_number = mPhoneNumberView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // 아이디의 유효성 검사
-        if (id.isEmpty()) {
-            mIdView.setError("아이디를 입력해주세요.");
-            focusView = mIdView;
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            mEmailView.setError("이메일을 입력해주세요.");
+            focusView = mEmailView;
             cancel = true;
-        } else if (!isIdValid(id)) {
-            mIdView.setError("4자 이상 20자 이하의 아이디를 입력해주세요.");
-            focusView = mIdView;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = mEmailView;
             cancel = true;
         }
 
@@ -93,17 +125,6 @@ public class JoinActivity extends AppCompatActivity {
         } else if (!isPasswordValid(password)) {
             mPasswordView.setError("8자 이상 20자 이하 비밀번호를 입력해주세요.");
             focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // 이메일의 유효성 검사
-        if (email.isEmpty()) {
-            mEmailView.setError("이메일을 입력해주세요.");
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError("@를 포함한 유효한 이메일을 입력해주세요.");
-            focusView = mEmailView;
             cancel = true;
         }
 
@@ -127,10 +148,28 @@ public class JoinActivity extends AppCompatActivity {
 
         if (cancel) {
             focusView.requestFocus();
-        } else {
-            startJoin(new JoinData(id, password, email, name, phone_number));
+        } else if(emailAvailable) {
+            startJoin(new JoinData(email, password, name, phone_number));
             showProgress(true);
         }
+    }
+
+    private void startEmailAvailable(JoinAvailable data){
+        service.userJoinAvailable(data).enqueue(new Callback<JoinAvailableResponse>(){
+            @Override
+            public void onResponse(Call<JoinAvailableResponse> call, Response<JoinAvailableResponse> response) {
+                JoinAvailableResponse result = response.body();
+                Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                if (result.getCode() == 200) {
+                    emailAvailable =true;
+                }
+            }
+            @Override
+            public void onFailure(Call<JoinAvailableResponse> call, Throwable t) {
+                Toast.makeText(JoinActivity.this, "이메일 중복 체크 에러 발생", Toast.LENGTH_SHORT).show();
+                showProgress(false);
+            }
+        });
     }
 
     private void startJoin(JoinData data) {
