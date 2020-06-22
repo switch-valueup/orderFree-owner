@@ -1,5 +1,7 @@
 package com.example.userapplication.login.network;
 
+import com.example.userapplication.login.data.JoinAvailable;
+import com.example.userapplication.login.data.JoinAvailableResponse;
 import com.example.userapplication.login.data.JoinData;
 import com.example.userapplication.login.data.JoinResponse;
 import com.example.userapplication.login.data.LoginData;
@@ -15,4 +17,7 @@ public interface ServiceApi {
 
     @POST("/user/join")
     Call<JoinResponse> userJoin(@Body JoinData data);
+
+    @POST("/user/join_emailAvailable")
+    Call<JoinAvailableResponse> userJoinAvailable(@Body JoinAvailable data);
 }
