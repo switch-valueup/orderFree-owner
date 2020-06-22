@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     //private AutoCompleteTextView mEmailView;
-    private EditText mIDView;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private Button mLoginButton;
     private Button mFindIdPassword;
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mIDView = (EditText) findViewById(R.id.login_id);
+        mEmailView = (EditText) findViewById(R.id.login_email);
         mPasswordView = (EditText) findViewById(R.id.login_password);
         mLoginButton = (Button) findViewById(R.id.login_button);
         mFindIdPassword = (Button) findViewById(R.id.find_id_password);
@@ -62,19 +62,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        mIDView.setError(null);
+        mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        String id = mIDView.getText().toString();
+        String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // 아이디의 유효성 검사
-        if (id.isEmpty()) {
-            mIDView.setError("아이디를 입력해주세요.");
-            focusView = mIDView;
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            mEmailView.setError("이메일을 입력해주세요.");
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = mEmailView;
             cancel = true;
         }
 
@@ -92,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            startLogin(new LoginData(id, password));
+            startLogin(new LoginData(email, password));
             showProgress(true);
         }
     }
@@ -105,9 +109,9 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 showProgress(false);
                 if(result.getCode()==200) {
-                    String loginID = mIDView.getText().toString();
+                    String loginEmail = mEmailView.getText().toString();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("id", loginID);
+                    intent.putExtra("email", loginEmail);
                     startActivity(intent);
                     finish();
                 }
@@ -121,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //private boolean isEmailValid(String email) {return email.contains("@");}
+    private boolean isEmailValid(String email) {return email.contains("@");}
 
     private boolean isPasswordValid(String password) {
         return ((password.length() >= 8) && (password.length()<=20));
