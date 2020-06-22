@@ -1,5 +1,6 @@
 package com.example.userapplication.login.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +37,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.join);
+        setContentView(R.layout.activity_join);
 
         mIdView = (EditText) findViewById(R.id.join_id);
         mPasswordView = (EditText) findViewById(R.id.join_password);
@@ -139,12 +140,12 @@ public class JoinActivity extends AppCompatActivity {
                 JoinResponse result = response.body();
                 Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 showProgress(false);
-
                 if (result.getCode() == 200) {
+                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
-
             @Override
             public void onFailure(Call<JoinResponse> call, Throwable t) {
                 Toast.makeText(JoinActivity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
