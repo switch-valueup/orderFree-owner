@@ -3,14 +3,12 @@ package com.example.userapplication.login.data;
 import com.google.gson.annotations.SerializedName;
 
 public class JoinData {
-    @SerializedName("userID")
-    private String userID;
-
-    @SerializedName("userPwd")
-    private String userPwd;
 
     @SerializedName("userEmail")
     private String userEmail;
+
+    @SerializedName("userPwd")
+    private String userPwd;
 
     @SerializedName("userName")
     private String userName;
@@ -19,11 +17,10 @@ public class JoinData {
     private String userMobilePhone;
 
 
-    public JoinData(String userID, String userPwd, String userEmail,
+    public JoinData(String userEmail, String userPwd,
                     String userName, String userMobilePhone) {
-        this.userID = userID;
-        this.userPwd = userPwd;
         this.userEmail = userEmail;
+        this.userPwd = userPwd;
         this.userName = userName;
         this.userMobilePhone=userMobilePhone;
     }
