@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -32,10 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar mProgressView;
     private ServiceApi service;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout);
+        setContentView(R.layout.activity_login);
 
         mIDView = (EditText) findViewById(R.id.login_id);
         mPasswordView = (EditText) findViewById(R.id.login_password);
@@ -104,8 +104,14 @@ public class LoginActivity extends AppCompatActivity {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 showProgress(false);
+                if(result.getCode()==200) {
+                    String loginID = mIDView.getText().toString();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("id", loginID);
+                    startActivity(intent);
+                    finish();
+                }
             }
-
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
