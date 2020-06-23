@@ -37,7 +37,8 @@ public class addMenuActivity extends AppCompatActivity {
         mArrayList = new ArrayList<>();
 
         //리사이클러뷰에 adapter 객체 지정
-        mAdapter = new CustomAdapter(mArrayList);
+        //mAdapter = new CustomAdapter(mArrayList);
+        mAdapter = new CustomAdapter(this, mArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
 
