@@ -1,14 +1,19 @@
 package com.example.userapplication.mainview.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +51,24 @@ public class addMenuActivity extends AppCompatActivity {
                 mLinearLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
+        //항목 터치시 내부로 들어가기
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Dictionary dict = mArrayList.get(position);
+                Intent intent = new Intent(getBaseContext(), addMenuResultActivity.class);
+
+                intent.putExtra("id", dict.getId());
+                intent.putExtra( "korean", dict.getKorean());
+                intent.putExtra("english", dict.getEnglish());
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
         Button buttonInsert = (Button) findViewById(R.id.button_main_insert);
         buttonInsert.setOnClickListener(new View.OnClickListener() { //데이터 추가 버튼 클릭시
@@ -90,6 +113,51 @@ public class addMenuActivity extends AppCompatActivity {
                dialog.show();
             }
         });
+    }
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private addMenuActivity.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final addMenuActivity.ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        }
     }
 }
 
