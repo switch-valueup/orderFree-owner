@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".mainview.activity.addMenuActivity">
+
+    <TextView
+        android:id="@+id/오더"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="오더"
+        android:textColor="#387EF6"
+        android:textSize="30sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/프리"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053" />
+
+    <TextView
+        android:id="@+id/프리"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="252dp"
+        android:text="프리"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
+
+    <TextView
+        android:id="@+id/점주용"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="점주용 어플"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/오더"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/storeName"
+        android:layout_width="140pt"
+        android:layout_height="20pt"
+        android:layout_marginTop="24dp"
+
+        android:background="@drawable/button_round_gray"
+        android:gravity="center_vertical"
+        android:textColor="@color/design_default_color_background"
+        android:textColorHighlight="@color/design_default_color_background"
+
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/점주용" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="140pt"
+        android:layout_height="2dp"
+
+        android:layout_marginTop="28dp"
+        android:background="@color/design_default_color_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeName"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recyclerview_main_list"
+        android:layout_width="333dp"
+        android:layout_height="405dp"
+
+        android:layout_marginTop="28dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+
+        android:scrollbarThumbVertical="@color/colorAccent"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button_main_insert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_weight="9" />
+
+    <Button
+        android:id="@+id/button_main_insert"
+        android:layout_width="406dp"
+        android:layout_height="60dp"
+        android:text="데이터 추가"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.978"
+        app:layout_constraintVertical_weight="1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
