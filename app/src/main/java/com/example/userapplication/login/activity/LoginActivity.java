@@ -22,13 +22,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    //private AutoCompleteTextView mEmailView;
     private EditText mEmailView;
     private EditText mPasswordView;
     private Button mLoginButton;
     private Button mFindIdPassword;
     private Button mJoinButton;
-    private ProgressBar mProgressView;
     private ServiceApi service;
 
 
@@ -42,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = (Button) findViewById(R.id.login_button);
         mFindIdPassword = (Button) findViewById(R.id.find_id_password);
         mJoinButton = (Button) findViewById(R.id.join_button);
-        mProgressView = (ProgressBar) findViewById(R.id.login_progress);
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
@@ -97,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             startLogin(new LoginData(email, password));
-            showProgress(true);
         }
     }
 
@@ -107,11 +103,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                showProgress(false);
                 if(result.getCode()==200) {
-                    String loginEmail = mEmailView.getText().toString();
+                    String userName = response.body().getUserName();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("email", loginEmail);
+                    intent.putExtra("userName", userName);
                     startActivity(intent);
                     finish();
                 }
@@ -120,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
                 Log.e("로그인 에러 발생", t.getMessage());
-                showProgress(false);
             }
         });
     }
@@ -131,7 +125,4 @@ public class LoginActivity extends AppCompatActivity {
         return ((password.length() >= 8) && (password.length()<=20));
     }
 
-    private void showProgress(boolean show) {
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
 }
