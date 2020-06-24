@@ -3,12 +3,15 @@ package com.example.userapplication.login.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.userapplication.R;
@@ -16,6 +19,7 @@ import com.example.userapplication.login.data.LoginData;
 import com.example.userapplication.login.data.LoginResponse;
 import com.example.userapplication.login.network.RetrofitClient;
 import com.example.userapplication.login.network.ServiceApi;
+import com.example.userapplication.mainview.activity.addMenuActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,8 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private Button mLoginButton;
-    private Button mFindIdPassword;
     private Button mJoinButton;
+    private TextView mFindIdPassword;
     private ServiceApi service;
 
 
@@ -37,9 +41,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmailView = (EditText) findViewById(R.id.login_email);
         mPasswordView = (EditText) findViewById(R.id.login_password);
-        mLoginButton = (Button) findViewById(R.id.login_button);
-        mFindIdPassword = (Button) findViewById(R.id.find_id_password);
-        mJoinButton = (Button) findViewById(R.id.join_button);
+        mLoginButton = (Button) findViewById(R.id.login_btn);
+        mJoinButton = (Button) findViewById(R.id.join_btn);
+        mFindIdPassword = (TextView) findViewById(R.id.find_id_password);
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
@@ -54,6 +58,54 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mFindIdPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                if (v.isClickable()) {
+                    //레이아웃 파일 find_id_password.xml을 불러와 화면에 다이얼로그를 보여준다.
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.find_id_password, null, false);
+                    builder.setView(view);
+
+                    final Button closeBtn = (Button) view.findViewById(R.id.close_btn);
+                    final TextView info1 = (TextView) view.findViewById(R.id.info1);
+                    final TextView info2 = (TextView) view.findViewById(R.id.info2);
+                    final Button loseEmailBtn = (Button) view.findViewById(R.id.email_find_btn);
+                    final Button losePasswordBtn = (Button) view.findViewById(R.id.password_find_btn);
+
+                    final AlertDialog dialog = builder.create();
+                    dialog.setCancelable(false); //화면 외부 클릭시 dismiss 현상 막기
+
+                    closeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    loseEmailBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //Intent intent = new Intent(getApplicationContext(), FindEmailActivity.class);
+                            //startActivity(intent);
+                            //finish();
+                        }
+                    });
+
+                    losePasswordBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), FindPasswordActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    dialog.show();
+                }
             }
         });
     }
