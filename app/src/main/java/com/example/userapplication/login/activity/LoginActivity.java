@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import com.example.userapplication.login.data.LoginData;
 import com.example.userapplication.login.data.LoginResponse;
 import com.example.userapplication.login.network.RetrofitClient;
 import com.example.userapplication.login.network.ServiceApi;
-import com.example.userapplication.mainview.activity.addMenuActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,9 +64,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (v.isClickable()) {
-                    //레이아웃 파일 find_id_password.xml을 불러와 화면에 다이얼로그를 보여준다.
+                    //레이아웃 파일 find_email_password.xml을 불러와 화면에 다이얼로그를 보여준다.
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.find_id_password, null, false);
+                    View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.find_email_password, null, false);
                     builder.setView(view);
 
                     final Button closeBtn = (Button) view.findViewById(R.id.close_btn);
@@ -90,9 +88,9 @@ public class LoginActivity extends AppCompatActivity {
                     loseEmailBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //Intent intent = new Intent(getApplicationContext(), FindEmailActivity.class);
-                            //startActivity(intent);
-                            //finish();
+                            Intent intent = new Intent(getApplicationContext(), FindEmailActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     });
 
