@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView mUserEmailView = (TextView)findViewById(R.id.userName);
+        TextView mUserNameView = (TextView)findViewById(R.id.userName);
         mMenuButton = (Button)findViewById(R.id.main_menu);
         mOrderListButton = (Button)findViewById(R.id.main_orderlist);
         mSellStatusButton = (Button)findViewById(R.id.main_sellstatus);
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         String userName = intent.getStringExtra("userName");
 
         if(intent.hasExtra("userName")) {
-            mUserEmailView.setText(userName);
+            mUserNameView.setText(userName);
         }
         mMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
