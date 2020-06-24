@@ -25,16 +25,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class JoinActivity extends AppCompatActivity {
-    //private AutoCompleteTextView mEmailView;
-    private EditText mIdView;
-    private EditText mPasswordView;
     private EditText mEmailView;
+    private EditText mPasswordView;
+    private EditText mPasswordCheckView;
     private EditText mNameView;
     private EditText mPhoneNumberView;
 
     private Button mEmailAvailableButton;
     private Button mJoinButton;
-    private ProgressBar mProgressView;
     private ServiceApi service;
     boolean emailAvailable =false;
     @Override
@@ -45,11 +43,11 @@ public class JoinActivity extends AppCompatActivity {
         //mIdView = (EditText) findViewById(R.id.join_id);
         mEmailAvailableButton =(Button) findViewById(R.id.join_id_available);
         mPasswordView = (EditText) findViewById(R.id.join_password);
+        mPasswordCheckView =(EditText) findViewById(R.id.join_password_check);
         mEmailView = (EditText) findViewById(R.id.join_email);
         mNameView = (EditText) findViewById(R.id.join_name);
         mPhoneNumberView =(EditText) findViewById(R.id.join_phone_number);
         mJoinButton = (Button) findViewById(R.id.join_button);
-        mProgressView = (ProgressBar) findViewById(R.id.join_progress);
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
@@ -87,7 +85,6 @@ public class JoinActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             startEmailAvailable(new JoinAvailable(email));
-            showProgress(true);
         }
     }
 
@@ -95,13 +92,16 @@ public class JoinActivity extends AppCompatActivity {
     private void attemptJoin() {
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mPasswordCheckView.setError(null);
         mNameView.setError(null);
         mPhoneNumberView.setError(null);
 
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String passwordCheck = mPasswordCheckView.getText().toString();
         String name = mNameView.getText().toString();
         String phone_number = mPhoneNumberView.getText().toString();
+
 
         boolean cancel = false;
         View focusView = null;
@@ -119,13 +119,22 @@ public class JoinActivity extends AppCompatActivity {
 
         // 패스워드의 유효성 검사
         if (password.isEmpty()) {
-            mEmailView.setError("비밀번호를 입력해주세요.");
-            focusView = mEmailView;
+            mPasswordView.setError("비밀번호를 입력해주세요.");
+            focusView = mPasswordView;
             cancel = true;
         } else if (!isPasswordValid(password)) {
             mPasswordView.setError("8자 이상 20자 이하 비밀번호를 입력해주세요.");
             focusView = mPasswordView;
             cancel = true;
+        } else if(passwordCheck.isEmpty()){
+            mPasswordCheckView.setError("비밀번호를 한 번 더 입력해주세요");
+            focusView=mPasswordCheckView;
+            cancel=true;
+        }else if(!(passwordCheck.equals(password))) {
+            mPasswordCheckView.setError("동일한 비밀번호를 입력해주세요.");
+            focusView = mPasswordCheckView;
+            cancel = true;
+            Toast.makeText(JoinActivity.this,"비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
         }
 
         // 이름의 유효성 검사
@@ -150,7 +159,8 @@ public class JoinActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else if(emailAvailable) {
             startJoin(new JoinData(email, password, name, phone_number));
-            showProgress(true);
+        } else if(!emailAvailable){
+            Toast.makeText(JoinActivity.this,"이메일 중복 확인을 해주세요",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -167,7 +177,6 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JoinAvailableResponse> call, Throwable t) {
                 Toast.makeText(JoinActivity.this, "이메일 중복 체크 에러 발생", Toast.LENGTH_SHORT).show();
-                showProgress(false);
             }
         });
     }
@@ -178,7 +187,6 @@ public class JoinActivity extends AppCompatActivity {
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 JoinResponse result = response.body();
                 Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                showProgress(false);
                 if (result.getCode() == 200) {
                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                     startActivity(intent);
@@ -189,7 +197,6 @@ public class JoinActivity extends AppCompatActivity {
             public void onFailure(Call<JoinResponse> call, Throwable t) {
                 Toast.makeText(JoinActivity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
                 Log.e("회원가입 에러 발생", t.getMessage());
-                showProgress(false);
             }
         });
     }
@@ -211,7 +218,4 @@ public class JoinActivity extends AppCompatActivity {
         return ( (phonenumber.length()==(int)11) || (phonenumber.length() ==(int)10) ) ;
     }
 
-    private void showProgress(boolean show) {
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
 }
