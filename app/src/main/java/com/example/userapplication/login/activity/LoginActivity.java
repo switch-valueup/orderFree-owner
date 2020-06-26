@@ -1,11 +1,14 @@
 package com.example.userapplication.login.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
     private Button mJoinButton;
     private TextView mFindIdPassword;
+    private CheckBox mAutoLogin;
     private ServiceApi service;
+
 
 
     @Override
@@ -39,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmailView = (EditText) findViewById(R.id.login_email);
         mPasswordView = (EditText) findViewById(R.id.login_password);
+        mAutoLogin = (CheckBox) findViewById(R.id.auto_login_checkBox);
         mLoginButton = (Button) findViewById(R.id.login_btn);
         mJoinButton = (Button) findViewById(R.id.join_btn);
         mFindIdPassword = (TextView) findViewById(R.id.find_id_password);
@@ -157,8 +163,22 @@ public class LoginActivity extends AppCompatActivity {
                     String userName = response.body().getUserName();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("userName", userName);
-                    startActivity(intent);
-                    finish();
+                    if(mAutoLogin.isChecked()){
+                        //자동 로그인 구현하기 위해서 sharedPreference로 이메일, 비밀번호, 사용자 이름, 자동로그인 버튼 클릭 체크 여부 저장
+                        SharedPreferences mPrefs = getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mPrefs.edit();
+                        editor.putString("userEmail",mEmailView.getText().toString());
+                        editor.putString("userPwd",mPasswordView.getText().toString());
+                        editor.putString("userName",userName);
+                        editor.putBoolean("autoLoginCheck",true);
+                        editor.commit();
+
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
             @Override
@@ -174,5 +194,4 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isPasswordValid(String password) {
         return ((password.length() >= 8) && (password.length()<=20));
     }
-
 }
