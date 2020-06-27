@@ -11,15 +11,21 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".login.activity.OpenActivity">
+        <activity android:name=".login.activity.SplashActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity
-            android:name=".login.activity.LoginActivity"/>
+        <activity android:name=".login.activity.OpenActivity"/>
+        <activity android:name=".login.activity.LoginActivity"/>
         <activity android:name=".login.activity.JoinActivity" />
         <activity android:name=".login.activity.MainActivity" />
+        <activity android:name=".login.activity.FindEmailActivity"/>
+        <activity android:name=".login.activity.FindEmailResultActivity"/>
+        <activity android:name=".login.activity.FindPasswordActivity"/>
+        <activity android:name=".mainview.activity.addMenuActivity"/>
+        <activity android:name=".mainview.activity.addMenuResultActivity"/>
+        <activity android:name=".mainview.activity.personInfoActivity"/>
     </application>
 </manifest>

@@ -13,7 +13,6 @@ public class addMenuResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addmenu_result);
 
-
         String id = "";
         String korean = "";
         String english = "";

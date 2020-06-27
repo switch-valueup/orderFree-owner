@@ -15,7 +15,7 @@ public class OpenActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appstart);
+        setContentView(R.layout.activity_open);
 
         mLoginButton = (Button)findViewById(R.id.login_button);
         mJoinButton = (Button)findViewById(R.id.join_button);
