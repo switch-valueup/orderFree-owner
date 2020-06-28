@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 //만약 저장된 정보가 없거나 자동로그인 체크되어 있지 않으면 로그인 화면으로 이동
                 if(!autoLoginCheck || saved_email.length()==0 || saved_pwd.length()==0 ){
-                    Intent intent = new Intent(getApplicationContext(), OpenActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(autoLoginCheck && saved_email.length()!=0 && saved_pwd.length()!=0){ //저장된 것이 있고 자동로그인이 체크되어 있으면 메인화면으로 이동
