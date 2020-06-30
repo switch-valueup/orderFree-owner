@@ -35,8 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox mAutoLogin;
     private ServiceApi service;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +74,6 @@ public class LoginActivity extends AppCompatActivity {
                     builder.setView(view);
 
                     final Button closeBtn = (Button) view.findViewById(R.id.close_btn);
-                    final TextView info1 = (TextView) view.findViewById(R.id.info1);
-                    final TextView info2 = (TextView) view.findViewById(R.id.info2);
                     final Button loseEmailBtn = (Button) view.findViewById(R.id.email_find_btn);
                     final Button losePasswordBtn = (Button) view.findViewById(R.id.password_find_btn);
 
@@ -154,22 +150,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startLogin(LoginData data) {
-        service.userLogin(data).enqueue(new Callback<LoginResponse>() {
+        service.ownerLogin(data).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 if(result.getCode()==200) {
-                    String userName = response.body().getUserName();
+                    String ownerName = response.body().getOwnerName();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("userName", userName);
+                    intent.putExtra("ownerName", ownerName);
                     if(mAutoLogin.isChecked()){
                         //자동 로그인 구현하기 위해서 sharedPreference로 이메일, 비밀번호, 사용자 이름, 자동로그인 버튼 클릭 체크 여부 저장
                         SharedPreferences mPrefs = getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPrefs.edit();
-                        editor.putString("userEmail",mEmailView.getText().toString());
-                        editor.putString("userPwd",mPasswordView.getText().toString());
-                        editor.putString("userName",userName);
+                        editor.putString("ownerEmail",mEmailView.getText().toString());
+                        editor.putString("ownerPwd",mPasswordView.getText().toString());
+                        editor.putString("ownerName",ownerName);
                         editor.putBoolean("autoLoginCheck",true);
                         editor.commit();
 

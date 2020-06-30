@@ -30,7 +30,6 @@ public class JoinActivity extends AppCompatActivity {
     private EditText mPasswordCheckView;
     private EditText mNameView;
     private EditText mPhoneNumberView;
-
     private Button mEmailAvailableButton;
     private Button mJoinButton;
     private ServiceApi service;
@@ -41,7 +40,6 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
-        //mIdView = (EditText) findViewById(R.id.join_id);
         mEmailAvailableButton =(Button) findViewById(R.id.join_id_available);
         mPasswordView = (EditText) findViewById(R.id.join_password);
         mPasswordCheckView =(EditText) findViewById(R.id.join_password_check);
@@ -166,7 +164,7 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     private void startEmailAvailable(JoinAvailable data){
-        service.userJoinAvailable(data).enqueue(new Callback<JoinAvailableResponse>(){
+        service.ownerJoinAvailable(data).enqueue(new Callback<JoinAvailableResponse>(){
             @Override
             public void onResponse(Call<JoinAvailableResponse> call, Response<JoinAvailableResponse> response) {
                 JoinAvailableResponse result = response.body();
@@ -183,7 +181,7 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     private void startJoin(JoinData data) {
-        service.userJoin(data).enqueue(new Callback<JoinResponse>() {
+        service.ownerJoin(data).enqueue(new Callback<JoinResponse>() {
             @Override
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 JoinResponse result = response.body();
@@ -202,11 +200,6 @@ public class JoinActivity extends AppCompatActivity {
         });
     }
 
-
-    private boolean isIdValid(String id) {
-        return (id.length() >= 4 && id.length() <= 20);
-    }
-
     private boolean isPasswordValid(String password) {
         return (password.length() >= 8 && password.length() <= 20);
     }
@@ -215,8 +208,8 @@ public class JoinActivity extends AppCompatActivity {
         return email.contains("@");
     }
 
-    private boolean isPhoneNumberValid(String phonenumber) {
-        return ( (phonenumber.length()==(int)11) || (phonenumber.length() ==(int)10) ) ;
+    private boolean isPhoneNumberValid(String phoneNumber) {
+        return ( (phoneNumber.length()==(int)11) || (phoneNumber.length() ==(int)10) ) ;
     }
 
 }

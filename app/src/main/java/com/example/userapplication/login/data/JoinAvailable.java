@@ -3,10 +3,10 @@ package com.example.userapplication.login.data;
 import com.google.gson.annotations.SerializedName;
 
 public class JoinAvailable {
-    @SerializedName("userEmail")
-    private String userEmail;
+    @SerializedName("ownerEmail")
+    private String ownerEmail;
 
-    public JoinAvailable(String userEmail){
-        this.userEmail = userEmail;
+    public JoinAvailable(String ownerEmail){
+        this.ownerEmail = ownerEmail;
     }
 }

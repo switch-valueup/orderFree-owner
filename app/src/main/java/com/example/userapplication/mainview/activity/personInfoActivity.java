@@ -15,21 +15,21 @@ import com.example.userapplication.R;
 import com.example.userapplication.login.activity.LoginActivity;
 
 public class personInfoActivity extends AppCompatActivity {
-    private TextView mUserNameView;
+    private TextView mOwnerNameView;
     private Button mLogoutButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personinfo);
 
-        mUserNameView = (TextView) findViewById(R.id.userName) ;
+        mOwnerNameView = (TextView) findViewById(R.id.ownerName) ;
         mLogoutButton = (Button) findViewById(R.id.logout_btn);
 
         Intent intent = getIntent();
-        String userName = intent.getStringExtra("userName");
+        String ownerName = intent.getStringExtra("ownerName");
 
-        if(intent.hasExtra("userName")) {
-            mUserNameView.setText(userName);
+        if(intent.hasExtra("ownerName")) {
+            mOwnerNameView.setText(ownerName);
         }
 
         mLogoutButton.setOnClickListener(new View.OnClickListener() {

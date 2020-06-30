@@ -17,17 +17,17 @@ import retrofit2.http.POST;
 
 public interface ServiceApi {
     @POST("/owner/login")
-    Call<LoginResponse> userLogin(@Body LoginData data);
+    Call<LoginResponse> ownerLogin(@Body LoginData data);
 
     @POST("/owner/join")
-    Call<JoinResponse> userJoin(@Body JoinData data);
+    Call<JoinResponse> ownerJoin(@Body JoinData data);
 
     @POST("/owner/join_emailAvailable")
-    Call<JoinAvailableResponse> userJoinAvailable(@Body JoinAvailable data);
+    Call<JoinAvailableResponse> ownerJoinAvailable(@Body JoinAvailable data);
 
     @POST("/owner/find_email")
-    Call<FindEmailResponse> userFindEmail(@Body FindEmailData data);
+    Call<FindEmailResponse> ownerFindEmail(@Body FindEmailData data);
 
     @POST("/owner/find_password")
-    Call<FindPasswordResponse> userFindPassword(@Body FindPasswordData data);
+    Call<FindPasswordResponse> ownerFindPassword(@Body FindPasswordData data);
 }

@@ -9,8 +9,8 @@ public class LoginResponse {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("userName")
-    private String userName;
+    @SerializedName("ownerName")
+    private String ownerName;
 
     public int getCode() {
         return code;
@@ -20,5 +20,5 @@ public class LoginResponse {
         return message;
     }
 
-    public String getUserName() { return userName; }
+    public String getOwnerName() { return ownerName; }
 }

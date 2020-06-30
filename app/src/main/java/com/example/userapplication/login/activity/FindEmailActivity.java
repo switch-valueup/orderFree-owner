@@ -96,7 +96,7 @@ public class FindEmailActivity extends AppCompatActivity {
     }
 
     private void startFindEmail(FindEmailData data) {
-        service.userFindEmail(data).enqueue(new Callback<FindEmailResponse>() {
+        service.ownerFindEmail(data).enqueue(new Callback<FindEmailResponse>() {
             @Override
             public void onResponse(Call<FindEmailResponse> call, Response<FindEmailResponse> response) {
                 FindEmailResponse result = response.body();

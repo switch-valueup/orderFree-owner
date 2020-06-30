@@ -27,11 +27,6 @@ import retrofit2.Response;
 
 public class FindPasswordActivity extends AppCompatActivity {
     private TextView mGobackView;
-    /*
-    private TextView mTextVeiw;
-    private TextView mTextVeiw2;
-    private TextView mTextView3;
-    private TextView mTextView4;*/
     private EditText mSearch_psw_emailView;
     private EditText mSearch_psw_nameView;
     private EditText mSearch_psw_phoneView;
@@ -44,12 +39,6 @@ public class FindPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_findpassword);
 
         mGobackView = (TextView)findViewById(R.id.goback);
-         /*
-        mTextVeiw = (TextView)findViewById(R.id.textView);
-        mTextVeiw2 = (TextView)findViewById(R.id.textView2);
-        mTextView3 = (TextView)findViewById(R.id.textView3);
-        mTextView4= (TextView)findViewById(R.id.textView4);
-          */
         mSearch_psw_emailView = (EditText)findViewById(R.id.search_psw_email);
         mSearch_psw_nameView = (EditText)findViewById(R.id.search_psw_name);
         mSearch_psw_phoneView = (EditText)findViewById(R.id.search_psw_phone);
@@ -125,7 +114,7 @@ public class FindPasswordActivity extends AppCompatActivity {
     }
 
     private void startFindPassword(FindPasswordData data) {
-        service.userFindPassword(data).enqueue(new Callback<FindPasswordResponse>() {
+        service.ownerFindPassword(data).enqueue(new Callback<FindPasswordResponse>() {
             @Override
             public void onResponse(Call<FindPasswordResponse> call, Response<FindPasswordResponse> response) {
                 FindPasswordResponse result = response.body();
@@ -144,7 +133,7 @@ public class FindPasswordActivity extends AppCompatActivity {
 
     private boolean isEmailValid(String email) {return email.contains("@");}
 
-    private boolean isPhoneNumberValid(String phonenumber) { //전화번호 유효성 검사 함수, 전화번호는 10자리나 11자리여야함
-        return ( (phonenumber.length()==(int)11) || (phonenumber.length() ==(int)10) ) ;
+    private boolean isPhoneNumberValid(String phoneNumber) { //전화번호 유효성 검사 함수, 전화번호는 10자리나 11자리여야함
+        return ( (phoneNumber.length()==(int)11) || (phoneNumber.length() ==(int)10) ) ;
     }
 }

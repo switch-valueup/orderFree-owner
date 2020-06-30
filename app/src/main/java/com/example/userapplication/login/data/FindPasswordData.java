@@ -3,18 +3,18 @@ package com.example.userapplication.login.data;
 import com.google.gson.annotations.SerializedName;
 
 public class FindPasswordData {
-    @SerializedName("userEmail")
-    private String userEamil;
+    @SerializedName("ownerEmail")
+    private String ownerEmail;
 
-    @SerializedName("userName")
-    private String userName;
+    @SerializedName("ownerName")
+    private String ownerName;
 
-    @SerializedName("userMobilePhone")
-    private String userMobilePhone;
+    @SerializedName("ownerPhoneNumber")
+    private String ownerPhoneNumber;
 
-    public FindPasswordData(String userEmail, String userName, String userMobilePhone){
-        this.userEamil=userEmail;
-        this.userName=userName;
-        this.userMobilePhone=userMobilePhone;
+    public FindPasswordData(String ownerEmail, String ownerName, String ownerPhoneNumber){
+        this.ownerEmail=ownerEmail;
+        this.ownerName=ownerName;
+        this.ownerPhoneNumber=ownerPhoneNumber;
     }
 }

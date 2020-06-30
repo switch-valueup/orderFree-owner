@@ -18,8 +18,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         SharedPreferences mPref = getSharedPreferences("autoLoginRecord",MODE_PRIVATE);
-        String saved_email = mPref.getString("userEmail",null);
-        String saved_pwd = mPref.getString("userPwd",null);
+        String saved_email = mPref.getString("ownerEmail",null);
+        String saved_pwd = mPref.getString("ownerPwd",null);
         boolean autoLoginCheck = mPref.getBoolean("autoLoginCheck",false);
 
         Handler handler = new Handler();
@@ -32,9 +32,9 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else if(autoLoginCheck && saved_email.length()!=0 && saved_pwd.length()!=0){ //저장된 것이 있고 자동로그인이 체크되어 있으면 메인화면으로 이동
-                    String userName = mPref.getString("userName","");
+                    String ownerName = mPref.getString("ownerName","");
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("userName",userName);
+                    intent.putExtra("ownerName",ownerName);
                     startActivity(intent);
                     finish();
                 }

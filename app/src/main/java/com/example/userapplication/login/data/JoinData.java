@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class JoinData {
 
-    @SerializedName("userEmail")
-    private String userEmail;
+    @SerializedName("ownerEmail")
+    private String ownerEmail;
 
-    @SerializedName("userPwd")
-    private String userPwd;
+    @SerializedName("ownerPwd")
+    private String ownerPwd;
 
-    @SerializedName("userName")
-    private String userName;
+    @SerializedName("ownerName")
+    private String ownerName;
 
-    @SerializedName("userMobilePhone")
-    private String userMobilePhone;
+    @SerializedName("ownerPhoneNumber")
+    private String ownerPhoneNumber;
 
 
-    public JoinData(String userEmail, String userPwd,
-                    String userName, String userMobilePhone) {
-        this.userEmail = userEmail;
-        this.userPwd = userPwd;
-        this.userName = userName;
-        this.userMobilePhone=userMobilePhone;
+    public JoinData(String ownerEmail, String ownerPwd,
+                    String ownerName, String ownerPhoneNumber) {
+        this.ownerEmail = ownerEmail;
+        this.ownerPwd = ownerPwd;
+        this.ownerName = ownerName;
+        this.ownerPhoneNumber=ownerPhoneNumber;
     }
 }

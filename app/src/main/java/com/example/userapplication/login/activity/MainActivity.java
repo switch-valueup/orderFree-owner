@@ -21,17 +21,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView mUserNameView = (TextView)findViewById(R.id.userName);
+        TextView mOwnerNameView = (TextView)findViewById(R.id.ownerName);
         mMenuButton = (Button)findViewById(R.id.main_menu);
         mOrderListButton = (Button)findViewById(R.id.main_orderlist);
         mSellStatusButton = (Button)findViewById(R.id.main_sellstatus);
         mPersonInfoButton = (Button)findViewById(R.id.main_person_info);
 
         Intent intent = getIntent();
-        String userName = intent.getStringExtra("userName");
+        String ownerName = intent.getStringExtra("ownerName");
 
-        if(intent.hasExtra("userName")) {
-            mUserNameView.setText(userName);
+        if(intent.hasExtra("ownerName")) {
+            mOwnerNameView.setText(ownerName);
         }
         mMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
                 Boolean autoLoginCheck = mPref.getBoolean("autoLoginCheck",false);
                 Intent intent = new Intent(getApplicationContext(), com.example.userapplication.mainview.activity.personInfoActivity.class);
                 if(autoLoginCheck==false){// 자동로그인이 체크되어 있지 않거나 로그인이 첫번째인 경우는 기존에 전달받은 이름을 사용
-                    intent.putExtra("userName",userName);
+                    intent.putExtra("ownerName",ownerName);
                     startActivity(intent);
                 }else{ //자동로그인이 체크되어있는 경우 SharedPreferences에서 이름 가져오면 됨
-                    String userName = mPref.getString("userName",null);
-                    intent.putExtra("userName",userName);
+                    String ownerName = mPref.getString("ownerName",null);
+                    intent.putExtra("ownerName",ownerName);
                     startActivity(intent);
                 }
             }
