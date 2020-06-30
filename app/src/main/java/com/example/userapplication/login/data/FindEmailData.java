@@ -3,14 +3,14 @@ package com.example.userapplication.login.data;
         import com.google.gson.annotations.SerializedName;
 
 public class FindEmailData {
-    @SerializedName("userName")
-    private String userName;
+    @SerializedName("ownerName")
+    private String ownerName;
 
-    @SerializedName("userMobilePhone")
-    private String userMobilePhone;
+    @SerializedName("ownerPhoneNumber")
+    private String ownerPhoneNumber;
 
-    public FindEmailData(String userName, String userMobilePhone){
-        this.userName=userName;
-        this.userMobilePhone=userMobilePhone;
+    public FindEmailData(String ownerName, String ownerPhoneNumber){
+        this.ownerName=ownerName;
+        this.ownerPhoneNumber=ownerPhoneNumber;
     }
 }

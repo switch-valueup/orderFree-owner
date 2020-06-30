@@ -24,9 +24,6 @@ import retrofit2.Response;
 
 public class FindEmailActivity extends AppCompatActivity {
     private TextView mGobackView;
-    private TextView mTextVeiw;
-    private TextView mTextVeiw2;
-    private TextView mTextView3;
     private EditText mSearch_email_nameView;
     private EditText mSearch_email_phoneView;
     private Button mFind_btnView;
@@ -38,9 +35,6 @@ public class FindEmailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_findemail);
 
         mGobackView = (TextView)findViewById(R.id.goback);
-        mTextVeiw = (TextView)findViewById(R.id.textView);
-        mTextVeiw2 = (TextView)findViewById(R.id.textView2);
-        mTextView3 = (TextView)findViewById(R.id.textView3);
         mSearch_email_nameView = (EditText)findViewById(R.id.search_email_name);
         mSearch_email_phoneView = (EditText)findViewById(R.id.search_email_phone);
         mFind_btnView = (Button) findViewById(R.id.find_btn);
@@ -108,9 +102,9 @@ public class FindEmailActivity extends AppCompatActivity {
                 FindEmailResponse result = response.body();
                 Toast.makeText(FindEmailActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 if(result.getCode()==200) { //서버로부터 이름과 전화번호에 일치하는 이메일을 찾아왔을 경우
-                    String userEmail = response.body().getUserEmail();
+                    String ownerEmail = response.body().getOwnerEmail();
                     Intent intent = new Intent(getApplicationContext(), FindEmailResultActivity.class);
-                    intent.putExtra("userEmail", userEmail);
+                    intent.putExtra("ownerEmail", ownerEmail);
                     startActivity(intent);
                     finish();
                 }

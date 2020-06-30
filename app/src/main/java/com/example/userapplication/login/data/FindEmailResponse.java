@@ -9,8 +9,8 @@ public class FindEmailResponse {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("userEmail")
-    private String userEmail;
+    @SerializedName("ownerEmail")
+    private String ownerEmail;
 
     public int getCode() {
         return code;
@@ -20,5 +20,5 @@ public class FindEmailResponse {
         return message;
     }
 
-    public String getUserEmail() { return userEmail; }
+    public String getOwnerEmail() { return ownerEmail; }
 }

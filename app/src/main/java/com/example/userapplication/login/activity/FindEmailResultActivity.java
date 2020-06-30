@@ -12,9 +12,6 @@ import com.example.userapplication.R;
 
 public class FindEmailResultActivity extends AppCompatActivity {
     private TextView mGobackView;
-    private TextView mTextVeiw;
-    private TextView mTextVeiw2;
-    private TextView mTextView3;
     private Button mOk_btnView;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +19,14 @@ public class FindEmailResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_findemail_result);
 
         mGobackView = (TextView)findViewById(R.id.goback);
-        mTextVeiw = (TextView)findViewById(R.id.textView);
-        mTextVeiw2 = (TextView)findViewById(R.id.textView2);
-        mTextView3 = (TextView)findViewById(R.id.textView3);
         TextView mSearchedEmailView = (TextView)findViewById(R.id.searched_email);
         mOk_btnView = (Button) findViewById(R.id.ok_btn);
 
         Intent intent = getIntent();
-        String userEmail = intent.getStringExtra("userEmail");
+        String ownerEmail = intent.getStringExtra("ownerEmail");
 
-        if(intent.hasExtra("userEmail")) {
-            mSearchedEmailView.setText(userEmail);
+        if(intent.hasExtra("ownerEmail")) {
+            mSearchedEmailView.setText(ownerEmail);
         }
 
         mOk_btnView.setOnClickListener(new View.OnClickListener() {
