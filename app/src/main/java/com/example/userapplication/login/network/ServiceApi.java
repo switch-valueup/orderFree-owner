@@ -16,18 +16,18 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ServiceApi {
-    @POST("/user/login")
+    @POST("/owner/login")
     Call<LoginResponse> userLogin(@Body LoginData data);
 
-    @POST("/user/join")
+    @POST("/owner/join")
     Call<JoinResponse> userJoin(@Body JoinData data);
 
-    @POST("/user/join_emailAvailable")
+    @POST("/owner/join_emailAvailable")
     Call<JoinAvailableResponse> userJoinAvailable(@Body JoinAvailable data);
 
-    @POST("/user/find_email")
+    @POST("/owner/find_email")
     Call<FindEmailResponse> userFindEmail(@Body FindEmailData data);
 
-    @POST("/user/find_password")
+    @POST("/owner/find_password")
     Call<FindPasswordResponse> userFindPassword(@Body FindPasswordData data);
 }
