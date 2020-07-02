@@ -29,6 +29,6 @@ public interface ServiceApi {
     @POST("/owner/login/emailfind")
     Call<FindEmailResponse> ownerFindEmail(@Body FindEmailData data);
 
-    @POST("/owner/login/pswfind")
+    @POST("/owner/login/pwdfind")
     Call<FindPasswordResponse> ownerFindPassword(@Body FindPasswordData data);
 }
