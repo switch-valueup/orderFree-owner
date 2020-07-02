@@ -14,6 +14,7 @@ import com.example.userapplication.login.data.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.GET;
 
 public interface ServiceApi {
     @POST("/owner/login")
@@ -22,12 +23,12 @@ public interface ServiceApi {
     @POST("/owner/join")
     Call<JoinResponse> ownerJoin(@Body JoinData data);
 
-    @POST("/owner/join_emailAvailable")
+    @POST("/owner/join/emailcheck")
     Call<JoinAvailableResponse> ownerJoinAvailable(@Body JoinAvailable data);
 
-    @POST("/owner/find_email")
+    @POST("/owner/login/emailfind")
     Call<FindEmailResponse> ownerFindEmail(@Body FindEmailData data);
 
-    @POST("/owner/find_password")
+    @POST("/owner/login/pswfind")
     Call<FindPasswordResponse> ownerFindPassword(@Body FindPasswordData data);
 }
