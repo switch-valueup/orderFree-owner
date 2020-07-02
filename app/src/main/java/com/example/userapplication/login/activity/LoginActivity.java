@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                if(result.getCode()==200) {
+                if(result.getCode()==201) {
                     String ownerName = response.body().getOwnerName();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("ownerName", ownerName);
