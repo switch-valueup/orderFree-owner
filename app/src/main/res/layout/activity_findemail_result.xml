@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".login.activity.FindEmailResultActivity">
+    tools:context=".UI.login.activity.FindEmailResultActivity">
 
     <TextView
         android:id="@+id/goback"

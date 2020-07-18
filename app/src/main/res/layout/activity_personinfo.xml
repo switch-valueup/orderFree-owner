@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.example.userapplication.mainview.activity.personInfoActivity">
+    tools:context="com.example.userapplication.UI.mainview.activity.personInfoActivity">
 
     <TextView
         android:id="@+id/오더"
