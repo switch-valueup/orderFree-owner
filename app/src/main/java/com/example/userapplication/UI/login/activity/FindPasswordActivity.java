@@ -16,8 +16,8 @@ import androidx.annotation.Nullable;
 import com.example.userapplication.R;
 import com.example.userapplication.UI.login.data.FindPasswordData;
 import com.example.userapplication.UI.login.data.FindPasswordResponse;
-import com.example.userapplication.UI.login.network.RetrofitClient;
-import com.example.userapplication.UI.login.network.ServiceApi;
+import com.example.userapplication.network.RetrofitClient;
+import com.example.userapplication.network.ServiceApi;
 
 import retrofit2.Call;
 import retrofit2.Callback;

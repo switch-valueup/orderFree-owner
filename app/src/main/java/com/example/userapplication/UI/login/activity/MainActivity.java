@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.activity.personInfoActivity;
+import com.example.userapplication.UI.mainview.menu.addMenuActivity;
+import com.example.userapplication.UI.mainview.order.orderlistActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button mMenuButton;
@@ -37,13 +39,16 @@ public class MainActivity extends AppCompatActivity {
         mMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), addMenuActivity.class);
+                startActivity(intent);
             }
         });
 
         mOrderListButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), orderlistActivity.class);
+                startActivity(intent);
             }
         });
 

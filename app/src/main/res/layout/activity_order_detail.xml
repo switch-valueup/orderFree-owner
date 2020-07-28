@@ -201,6 +201,7 @@
             android:text="음식 준비 완료"
             android:textColor="#FFFFFF"
             android:textSize="20dp"
+            android:onClick="foodReady"
             >
         </Button>
 

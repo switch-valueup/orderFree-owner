@@ -16,8 +16,8 @@ import com.example.userapplication.UI.login.data.JoinAvailable;
 import com.example.userapplication.UI.login.data.JoinAvailableResponse;
 import com.example.userapplication.UI.login.data.JoinData;
 import com.example.userapplication.UI.login.data.JoinResponse;
-import com.example.userapplication.UI.login.network.RetrofitClient;
-import com.example.userapplication.UI.login.network.ServiceApi;
+import com.example.userapplication.network.RetrofitClient;
+import com.example.userapplication.network.ServiceApi;
 
 import retrofit2.Call;
 import retrofit2.Callback;
