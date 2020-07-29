@@ -58,7 +58,7 @@ public class editMenuActivity extends AppCompatActivity {
         EditText description = findViewById(R.id.text_info);
 
         menuName.setText(menuDetail.getMenuName());
-        category.setText(new CategoryConverter(menuDetail.getCategory()).convert());
+        category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
         Glide.with(this).load(menuDetail.getImgUrl()).into(image);
         price.setText(menuDetail.getPrice());
         description.setText(menuDetail.getInfo());

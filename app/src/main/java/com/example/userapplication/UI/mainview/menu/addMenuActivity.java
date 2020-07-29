@@ -54,6 +54,7 @@ public class addMenuActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MenuListResponse> call, Response<MenuListResponse> response) {
                 if(response.isSuccessful()){
+                    Log.e("flag","success");
                     datas = response.body().getResult_menuList();
                     recyclerView = (RecyclerView)findViewById(R.id.mene_recycler);
                     recyclerView.setHasFixedSize(true);
@@ -66,6 +67,7 @@ public class addMenuActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MenuListResponse> call, Throwable t) {
+                Log.e("flag","failure");
                 Log.e("menuListErr",t.getMessage());
             }
         });

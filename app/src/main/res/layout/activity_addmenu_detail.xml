@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_addmenu_header"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_addmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="오더프리메뉴 상세등록"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            >
+        </TextView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@android:color/transparent"
+            android:paddingLeft="10dp"
+            android:text="뒤로"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:textStyle="bold">
+        </Button>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/activity_addmenu_header"
+        >
+    </View>
+
+    <ScrollView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/activity_addmenu_header"
+        app:layout_constraintBottom_toTopOf="@id/button_addmenu"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addmenu_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="메뉴 이름"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/text_menu"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="20dp"
+                    android:background="#FFFFFF"
+                    android:textColor="#000000"
+                    android:textStyle="normal"
+                    android:textSize="20dp"
+                    android:inputType="text"
+                    android:text=""
+                    android:padding="5dp">
+                </EditText>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addmenu_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/addmenu_menu"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="분류선택"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold">
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spinner_category"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="20dp"
+                    android:background="#A6A6A6"
+                    android:entries="@array/category">
+                </Spinner>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/image_addmenu"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_margin="30dp"
+                app:layout_constraintTop_toBottomOf="@id/addmenu_category"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+            </ImageView>
+
+            <Button
+                android:id="@+id/button_addimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/image_addmenu"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@android:color/transparent"
+                android:text="+ 이미지 불러오기"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:onClick="addImage">
+
+            </Button>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addmenu_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/button_addimage"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="가격"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/text_price"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="20dp"
+                    android:background="#FFFFFF"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:padding="5dp">
+                </EditText>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addmenu_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/addmenu_price"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="설명"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/text_info"
+                    android:layout_width="200dp"
+                    android:layout_height="120dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="20dp"
+                    android:background="#FFFFFF"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:padding="5dp">
+                </EditText>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_addmenu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/button_round_gray"
+        android:text="항목 추가"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:onClick="addMenuPost">
+
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
