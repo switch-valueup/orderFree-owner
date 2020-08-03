@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                if(result.getCode()==200) {
+                if(result.getCode()==201) {
                     String ownerName = response.body().getOwnerName();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("ownerName", ownerName);
@@ -164,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences mPrefs = getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPrefs.edit();
                         editor.putString("ownerEmail",mEmailView.getText().toString());
+                        intent.putExtra("ownerEmail",mEmailView.getText().toString());
                         editor.putString("ownerPwd",mPasswordView.getText().toString());
                         editor.putString("ownerName",ownerName);
                         editor.putBoolean("autoLoginCheck",true);

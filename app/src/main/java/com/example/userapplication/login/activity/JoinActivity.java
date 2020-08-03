@@ -169,13 +169,14 @@ public class JoinActivity extends AppCompatActivity {
             public void onResponse(Call<JoinAvailableResponse> call, Response<JoinAvailableResponse> response) {
                 JoinAvailableResponse result = response.body();
                 Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                if (result.getCode() == 200) {
+                if (result.getCode() == 201) {
                     emailAvailable =true;
                 }
             }
             @Override
             public void onFailure(Call<JoinAvailableResponse> call, Throwable t) {
                 Toast.makeText(JoinActivity.this, "이메일 중복 체크 에러 발생", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(JoinActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -186,7 +187,7 @@ public class JoinActivity extends AppCompatActivity {
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 JoinResponse result = response.body();
                 Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                if (result.getCode() == 200) {
+                if (result.getCode() == 201) {
                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                     startActivity(intent);
                     finish();

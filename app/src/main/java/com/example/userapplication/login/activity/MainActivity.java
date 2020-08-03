@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.userapplication.R;
 
+
 public class MainActivity extends AppCompatActivity {
     private Button mMenuButton;
     private Button mOrderListButton;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String ownerName = intent.getStringExtra("ownerName");
+        String ownerEmail = intent.getStringExtra("ownerEmail");
 
         if(intent.hasExtra("ownerName")) {
             mOwnerNameView.setText(ownerName);
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         mSellStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),com.example.userapplication.mainview.activity.SellStatusActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -61,10 +65,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), com.example.userapplication.mainview.activity.personInfoActivity.class);
                 if(autoLoginCheck==false){// 자동로그인이 체크되어 있지 않거나 로그인이 첫번째인 경우는 기존에 전달받은 이름을 사용
                     intent.putExtra("ownerName",ownerName);
+                    intent.putExtra("ownerEmail",ownerEmail);
                     startActivity(intent);
                 }else{ //자동로그인이 체크되어있는 경우 SharedPreferences에서 이름 가져오면 됨
                     String ownerName = mPref.getString("ownerName",null);
+                    String ownerEmail = mPref.getString("ownerEmail",null);
                     intent.putExtra("ownerName",ownerName);
+                    intent.putExtra("ownerEmail",ownerEmail);
                     startActivity(intent);
                 }
             }

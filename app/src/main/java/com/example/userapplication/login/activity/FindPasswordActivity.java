@@ -119,7 +119,7 @@ public class FindPasswordActivity extends AppCompatActivity {
             public void onResponse(Call<FindPasswordResponse> call, Response<FindPasswordResponse> response) {
                 FindPasswordResponse result = response.body();
                 Toast.makeText(FindPasswordActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                if(result.getCode()==200) { //서버로부터 이름과 전화번호에 일치하는 이메일을 찾아왔을 경우
+                if(result.getCode()==201) { //서버로부터 이름과 전화번호에 일치하는 이메일을 찾아왔을 경우
 
                 }
             }

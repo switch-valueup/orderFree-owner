@@ -26,5 +26,10 @@
         <activity android:name=".mainview.activity.addMenuActivity"/>
         <activity android:name=".mainview.activity.addMenuResultActivity"/>
         <activity android:name=".mainview.activity.personInfoActivity"/>
+        <activity android:name=".mainview.activity.SellStatusActivity"/>
+        <activity android:name=".mainview.activity.daumWebViewActivity"/>
+        <activity android:name=".login.activity.AccountDeleteActivity"/>
+        <activity android:name=".login.activity.ChangePasswordActivity" android:theme="@android:style/Theme.Dialog" />
+
     </application>
 </manifest>
