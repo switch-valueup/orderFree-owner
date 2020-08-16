@@ -1,6 +1,7 @@
 package com.example.userapplication.UI.mainview.menu;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +10,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.userapplication.R;
+import com.example.userapplication.UI.mainview.menu.data.MenuDeleteData;
+import com.example.userapplication.UI.mainview.menu.data.MenuDeleteResponse;
 import com.example.userapplication.UI.mainview.menu.data.MenuListResponse;
 import com.example.userapplication.UI.mainview.menu.data.MenuListResponseData;
 import com.example.userapplication.Util.CategoryConverter;
+import com.example.userapplication.network.RetrofitClient;
+import com.example.userapplication.network.ServiceApi;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class addMenuAdapter extends RecyclerView.Adapter<addMenuAdapter.ViewHolder> {
     private List<MenuListResponseData> lists;
@@ -63,11 +74,49 @@ public class addMenuAdapter extends RecyclerView.Adapter<addMenuAdapter.ViewHold
                     v.getContext().startActivity(intent);
                 }
             });
+
+            v.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                    builder.setMessage("삭제하시겠습니까?");
+                    builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteData(lists.get(getAdapterPosition()).getMenuName(),v);
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    return true;
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
         return lists.size();
+    }
+
+    public void deleteData(String menuName, View v){
+        MenuDeleteData menuDeleteData = new MenuDeleteData(v.getContext().getSharedPreferences("autoLoginRecord", v.getContext().MODE_PRIVATE).getString("ownerEmail","err"), menuName);
+        ServiceApi service = RetrofitClient.getClient().create(ServiceApi.class);
+        service.ownerMenuDelete(menuDeleteData).enqueue(new Callback<MenuDeleteResponse>() {
+            @Override
+            public void onResponse(Call<MenuDeleteResponse> call, Response<MenuDeleteResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<MenuDeleteResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

@@ -3,9 +3,6 @@ package com.example.userapplication.UI.mainview.menu.data;
 import com.google.gson.annotations.SerializedName;
 
 public class MenuDetailResponseData {
-    @SerializedName("ownerEmail")
-    private String ownerEmail;
-
     @SerializedName("menuName")
     private String menuName;
 
@@ -20,10 +17,6 @@ public class MenuDetailResponseData {
 
     @SerializedName("info")
     private String info;
-
-    public String getOwnerEmail() {
-        return ownerEmail;
-    }
 
     public String getMenuName() {
         return menuName;

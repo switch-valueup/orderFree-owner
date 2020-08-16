@@ -148,6 +148,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/shopping_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp">
@@ -178,6 +179,7 @@
             android:text="이전 주문 보기"
             android:textColor="#FFFFFF"
             android:textSize="20dp"
+            android:onClick="preOrder"
             >
         </Button>
         <Button
@@ -190,6 +192,7 @@
             android:text="다음 주문 보기"
             android:textColor="#FFFFFF"
             android:textSize="20dp"
+            android:onClick="nextOrder"
             >
         </Button>
         <Button

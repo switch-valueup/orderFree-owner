@@ -15,12 +15,17 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.UploadObjectObserver;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.util.IOUtils;
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.menu.data.AddMenuData;
@@ -46,6 +51,7 @@ public class addMenuDetailActivity extends AppCompatActivity {
     private String menuName;
     private boolean isAddImage = false;
     private ServiceApi service;
+    private String bucket_path = "https://s3.ap-northeast-2.amazonaws.com/valueup/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,14 +156,31 @@ public class addMenuDetailActivity extends AppCompatActivity {
                 Regions.AP_NORTHEAST_2 // 리전
         );
 
-        AmazonS3 s3 = new AmazonS3Client(credentialsProvider);
-        TransferUtility transferUtility = new TransferUtility(s3, getApplicationContext());
+        TransferNetworkLossHandler.getInstance(getApplicationContext());
+        TransferUtility transferUtility = TransferUtility.builder()
+                .context(getApplicationContext()).defaultBucket("valueup")
+                .s3Client(new AmazonS3Client(credentialsProvider, Region.getRegion(Regions.AP_NORTHEAST_2))).build();
 
-        // OBJECT_KEY : file name, MY_FILE : file
-        TransferObserver observer = transferUtility.upload("valueup", image.getName(), image);;
+        TransferObserver uploadObserver = transferUtility.upload(bucket_path+image.getName(), image, CannedAccessControlList.PublicRead);
 
-        imageUrl = s3.getUrl("valueup", image.getName()).toString();
+        Log.e("upload key", bucket_path+image.getName());
+        uploadObserver.setTransferListener(new TransferListener() {
+            @Override
+            public void onStateChanged(int id, TransferState state) {
+                if(state == TransferState.COMPLETED){
 
-        Log.e("isUpload", imageUrl.toString());
+                }
+            }
+
+            @Override
+            public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+
+            }
+
+            @Override
+            public void onError(int id, Exception ex) {
+
+            }
+        });
     }
 }

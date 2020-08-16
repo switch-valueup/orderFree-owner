@@ -32,15 +32,23 @@ public class editMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editmenu);
         service = RetrofitClient.getClient().create(ServiceApi.class);
         getMenuInfo();
-        bindMenuInfo();
+        Log.e("test","test");
     }
 
     public void getMenuInfo(){
+        Log.e("test2","test2");
         MenuDetailData menuDetailData = new MenuDetailData(getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE).getString("ownerEmail","err"), getIntent().getStringExtra("menuName"));
+        Log.e("ownerEmail", menuDetailData.getOwnerEmail());
+        Log.e("menuName", getIntent().getStringExtra("menuName"));
         service.ownerMenuDetail(menuDetailData).enqueue(new Callback<MenuDetailResponse>() {
             @Override
             public void onResponse(Call<MenuDetailResponse> call, Response<MenuDetailResponse> response) {
+                Log.e("test3","success");
                 menuDetail = response.body().getResult();
+                if(menuDetail == null){
+                    Log.e("response data","null");
+                }
+                bindMenuInfo();
             }
 
             @Override

@@ -8,33 +8,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.userapplication.R;
+import com.example.userapplication.UI.mainview.menu.data.MenuListResponseData;
+import com.example.userapplication.UI.mainview.menu.editMenuActivity;
+import com.example.userapplication.UI.mainview.order.data.OrderListResponseData;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class orderlistAdapter extends RecyclerView.Adapter<orderlistAdapter.ViewHolder> {
-    private int[] number;
+    private List<OrderListResponseData> number;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public View itemView;
-        public ViewHolder(@NonNull View v) {
-            super(v);
-            itemView = v;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, orderDetailActivity.class);
-                    intent.putExtra("orderList",number);
-                    intent.putExtra("currentOrderPos", getAdapterPosition());
-                    context.startActivity(intent);
-                }
-            });
-        }
-    }
-
-    public orderlistAdapter(int[] datas){
+    public orderlistAdapter(List<OrderListResponseData> datas){
         number = datas;
     }
 
@@ -45,17 +31,34 @@ public class orderlistAdapter extends RecyclerView.Adapter<orderlistAdapter.View
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item = inflater.inflate(R.layout.orderlist_item, parent, false);
         orderlistAdapter.ViewHolder viewHolder = new orderlistAdapter.ViewHolder(item);
-        return null;
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull orderlistAdapter.ViewHolder holder, int position) {
-        TextView num = holder.itemView.findViewById(R.id.orderlist_number);
-        num.setText(number[position]);
+        holder.order.setText(String.valueOf(number.get(position).getOrderNum()));
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public TextView order;
+        public ViewHolder(@NonNull View v) {
+            super(v);
+            order = v.findViewById(R.id.orderlist_number);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), orderDetailActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("orderNum", number.get(getAdapterPosition()).getOrderNum());
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return number.length;
+        return number.size();
     }
 }

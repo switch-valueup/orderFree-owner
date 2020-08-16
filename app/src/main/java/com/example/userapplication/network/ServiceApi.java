@@ -62,7 +62,7 @@ public interface ServiceApi {
     @POST("/main/menu/add")
     Call<AddMenuResponse> ownerAddMenu(@Body AddMenuData data);
 
-    @POST("/main/menu/menuList_eachMenu")
+    @POST("/main/menu/menuSpecification")
     Call<MenuDetailResponse> ownerMenuDetail(@Body MenuDetailData data);
 
     @POST("/main/menu/delete")
@@ -72,17 +72,17 @@ public interface ServiceApi {
     Call<MenuAlignResponse> ownerMenuAlign(@Body MenuAlignData data);
 
     // orderList
-    @POST("/main/orderList/orderedList")
+    @POST("/main/menu/orderedList")
     Call<OrderListResponse> ownerOrderList(@Body OrderListData data);
 
-    @POST("/main/orderList/orderedList_eachOrder")
+    @POST("/main/menu/orderedListSpecification")
     Call<OrderDetailResponse> ownerOrderDetail(@Body OrderDetailData data);
 
-    @POST("/main/orderList/previousOrder")
-    Call<PreOrderResponse> ownerPreOrder(@Body PreOrderData data);
+    @POST("/main/menu/orderList/previousOrder")
+    Call<OrderDetailResponse> ownerPreOrder(@Body OrderDetailData data);
 
-    @POST("/main/orderList/nextOrder")
-    Call<NextOrderResponse> ownerNextOrder(@Body NextOrderData data);
+    @POST("/main/menu/orderList/nextOrder")
+    Call<OrderDetailResponse> ownerNextOrder(@Body OrderDetailData data);
 
     @POST("/main/orderlist/complete")
     Call<OrderCompleteResponse> ownerOrderComplete(@Body OrderCompleteData data);

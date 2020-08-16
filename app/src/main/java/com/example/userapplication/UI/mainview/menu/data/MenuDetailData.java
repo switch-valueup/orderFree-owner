@@ -13,4 +13,12 @@ public class MenuDetailData {
         this.ownerEmail = ownerEmail;
         this.menuName = menuName;
     }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
 }

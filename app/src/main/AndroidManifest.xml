@@ -33,6 +33,7 @@
         <activity android:name=".UI.mainview.activity.personInfoActivity"/>
         <activity android:name=".UI.mainview.menu.addMenuActivity"/>
         <activity android:name=".UI.mainview.menu.addMenuDetailActivity"/>
+        <activity android:name=".UI.mainview.menu.editMenuActivity" />
         <activity android:name=".UI.mainview.order.orderlistActivity"/>
         <activity android:name=".UI.mainview.order.orderDetailActivity"/>
         <activity android:name=".UI.mainview.order.foodreadyActivity"/>

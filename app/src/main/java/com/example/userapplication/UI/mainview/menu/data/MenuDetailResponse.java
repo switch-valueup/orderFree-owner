@@ -9,7 +9,7 @@ public class MenuDetailResponse {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("result")
+    @SerializedName("resultMenuSpecification")
     private MenuDetailResponseData result;
 
     public int getCode() {
