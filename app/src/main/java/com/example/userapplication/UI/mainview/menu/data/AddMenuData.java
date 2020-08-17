@@ -12,8 +12,8 @@ public class AddMenuData {
     @SerializedName("category")
     private int category;
 
-    @SerializedName("imgUrl")
-    private String imgUrl;
+    @SerializedName("imgURL")
+    private String imgURL;
 
     @SerializedName("price")
     private int price;
@@ -31,7 +31,7 @@ public class AddMenuData {
         this.ownerEmail = ownerEmail;
         this.menuName = menuName;
         this.category = category;
-        this.imgUrl = imgUrl;
+        this.imgURL = imgUrl;
         this.price = price;
         this.info = info;
         this.decisionNum = 2;
@@ -42,7 +42,7 @@ public class AddMenuData {
         this.ownerEmail = ownerEmail;
         this.menuName = menuName;
         this.category = category;
-        this.imgUrl = imgUrl;
+        this.imgURL = imgUrl;
         this.price = price;
         this.info = info;
         this.decisionNum = 1;

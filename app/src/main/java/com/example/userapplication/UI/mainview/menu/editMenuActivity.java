@@ -86,7 +86,7 @@ public class editMenuActivity extends AppCompatActivity {
         price.setText(String.valueOf(menuDetail.getPrice()));
         description.setText(menuDetail.getInfo());
     }
-    
+
 
     // TODO reselect image
     public String imageEdit(){

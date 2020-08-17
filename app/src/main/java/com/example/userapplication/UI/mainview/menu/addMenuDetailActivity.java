@@ -79,6 +79,8 @@ public class addMenuDetailActivity extends AppCompatActivity {
         else{
             // make toast
         }
+        Intent intent = new Intent(this, addMenuActivity.class);
+        startActivity(intent);
     }
 
     public void networkPost(String menu, int cate, String img, int price, String info){
