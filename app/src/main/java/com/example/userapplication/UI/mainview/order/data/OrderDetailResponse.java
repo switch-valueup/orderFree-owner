@@ -11,8 +11,8 @@ public class OrderDetailResponse {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("orderedList")
-    private List<OrderDetailResponseData> orderedList;
+    @SerializedName("resultArray")
+    private List<OrderDetailResponseData> resultArray;
 
     public int getCode() {
         return code;
@@ -22,7 +22,7 @@ public class OrderDetailResponse {
         return message;
     }
 
-    public List<OrderDetailResponseData> getOrderedList() {
-        return orderedList;
+    public List<OrderDetailResponseData> getResultArray() {
+        return resultArray;
     }
 }

@@ -5,17 +5,25 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class OrderDetailResponseData {
-    @SerializedName("OrderNum")
-    private int OrderNum;
+    @SerializedName("orderNum")
+    private int orderNum;
 
-    @SerializedName("ShoppingList")
-    private List<ShoppingListData> ShoppingList;
+    @SerializedName("menuName")
+    private String menuName;
+
+    @SerializedName("count")
+    private int count;
+
 
     public int getOrderNum() {
-        return OrderNum;
+        return orderNum;
     }
 
-    public List<ShoppingListData> getShoppingList() {
-        return ShoppingList;
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public int getCount() {
+        return count;
     }
 }

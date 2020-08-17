@@ -47,7 +47,6 @@ public class addMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO drawer layout..! 흠...
     public void menuAlign(View view){
         drawerOn = !drawerOn;
         if(drawerOn){

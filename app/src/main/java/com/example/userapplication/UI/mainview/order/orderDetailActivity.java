@@ -3,12 +3,14 @@ package com.example.userapplication.UI.mainview.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.order.data.OrderDetailData;
 import com.example.userapplication.UI.mainview.order.data.OrderDetailResponse;
+import com.example.userapplication.UI.mainview.order.data.OrderDetailResponseData;
 import com.example.userapplication.UI.mainview.order.data.OrderListResponseData;
 import com.example.userapplication.UI.mainview.order.data.ShoppingListData;
 import com.example.userapplication.network.RetrofitClient;
@@ -29,7 +31,7 @@ public class orderDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rAdapter;
     private RecyclerView.LayoutManager rlayoutManager;
-    private List<ShoppingListData> datas;
+    private List<OrderDetailResponseData> datas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class orderDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         currentOrder = intent.getIntExtra("orderNum", 0);
         getShoppingList();
-        bindingView();
+        bindingView(currentOrder);
     }
 
     public void getShoppingList(){
@@ -46,14 +48,13 @@ public class orderDetailActivity extends AppCompatActivity {
         service.ownerOrderDetail(data).enqueue(new Callback<OrderDetailResponse>() {
             @Override
             public void onResponse(Call<OrderDetailResponse> call, Response<OrderDetailResponse> response) {
-                // TODO getshoppinglist 왜안대...
-//                datas = response.body().getOrderedList().
-//                recyclerView = (RecyclerView)findViewById(R.id.orderlist);
-//                recyclerView.setHasFixedSize(true);
-//                rlayoutManager = new LinearLayoutManager(getApplicationContext());
-//                recyclerView.setLayoutManager(rlayoutManager);
-//                rAdapter = new orderlistAdapter(datas);
-//                recyclerView.setAdapter(rAdapter);
+                datas = response.body().getResultArray();
+                recyclerView = (RecyclerView)findViewById(R.id.shopping_list);
+                recyclerView.setHasFixedSize(true);
+                rlayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(rlayoutManager);
+                rAdapter = new ShoppingListAdapter(datas);
+                recyclerView.setAdapter(rAdapter);
             }
 
             @Override
@@ -63,9 +64,9 @@ public class orderDetailActivity extends AppCompatActivity {
         });
     }
 
-    public void bindingView(){
+    public void bindingView(int orderNum){
         TextView order = findViewById(R.id.text_ordernumber);
-        order.setText(String.valueOf(currentOrder));
+        order.setText(String.valueOf(orderNum));
     }
 
     // when clicked food ready button
@@ -80,19 +81,26 @@ public class orderDetailActivity extends AppCompatActivity {
         service.ownerPreOrder(data).enqueue(new Callback<OrderDetailResponse>() {
             @Override
             public void onResponse(Call<OrderDetailResponse> call, Response<OrderDetailResponse> response) {
-                // TODO getshoppinglist 왜안대...
-//                datas = response.body().getOrderedList().
-//                recyclerView = (RecyclerView)findViewById(R.id.orderlist);
-//                recyclerView.setHasFixedSize(true);
-//                rlayoutManager = new LinearLayoutManager(getApplicationContext());
-//                recyclerView.setLayoutManager(rlayoutManager);
-//                rAdapter = new orderlistAdapter(datas);
-//                recyclerView.setAdapter(rAdapter);
+                if(response.body() == null){
+                    Log.e("pre body", "body null");
+                }
+                if(response.body().getResultArray() == null){
+                    Log.e("pre result", "result null");
+                }
+                Log.e("pre order test", String.valueOf(response.body().getResultArray().size()));
+                datas = response.body().getResultArray();
+                recyclerView = (RecyclerView)findViewById(R.id.shopping_list);
+                recyclerView.setHasFixedSize(true);
+                rlayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(rlayoutManager);
+                rAdapter = new ShoppingListAdapter(datas);
+                recyclerView.setAdapter(rAdapter);
+                bindingView(response.body().getResultArray().get(0).getOrderNum());
             }
 
             @Override
             public void onFailure(Call<OrderDetailResponse> call, Throwable t) {
-
+                Log.e("fail: preOrder", t.getMessage());
             }
         });
     }
@@ -102,30 +110,35 @@ public class orderDetailActivity extends AppCompatActivity {
         service.ownerNextOrder(data).enqueue(new Callback<OrderDetailResponse>() {
             @Override
             public void onResponse(Call<OrderDetailResponse> call, Response<OrderDetailResponse> response) {
-                // TODO getshoppinglist 왜안대...
-//                datas = response.body().getOrderedList().
-//                recyclerView = (RecyclerView)findViewById(R.id.orderlist);
-//                recyclerView.setHasFixedSize(true);
-//                rlayoutManager = new LinearLayoutManager(getApplicationContext());
-//                recyclerView.setLayoutManager(rlayoutManager);
-//                rAdapter = new orderlistAdapter(datas);
-//                recyclerView.setAdapter(rAdapter);
+                if(response.body() == null){
+                    Log.e("next body", "body null");
+                }
+                if(response.body().getResultArray() == null){
+                    Log.e("next result", "result null");
+                }
+                Log.e("next order test", String.valueOf(response.body().getResultArray().size()));
+                datas = response.body().getResultArray();
+                recyclerView = (RecyclerView)findViewById(R.id.shopping_list);
+                recyclerView.setHasFixedSize(true);
+                rlayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(rlayoutManager);
+                rAdapter = new ShoppingListAdapter(datas);
+                recyclerView.setAdapter(rAdapter);
+                bindingView(response.body().getResultArray().get(0).getOrderNum());
             }
 
             @Override
             public void onFailure(Call<OrderDetailResponse> call, Throwable t) {
-
+                Log.e("fail: nextOrder", t.getMessage());
             }
         });
     }
 
     public void preOrder(View view){
         getPreShoppingList();
-        bindingView();
     }
 
     public void nextOrder(View view){
         getNextShoppingList();
-        bindingView();
     }
 }

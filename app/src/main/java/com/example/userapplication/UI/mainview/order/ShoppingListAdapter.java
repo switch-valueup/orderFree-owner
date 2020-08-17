@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.userapplication.R;
+import com.example.userapplication.UI.mainview.order.data.OrderDetailResponseData;
 import com.example.userapplication.UI.mainview.order.data.ShoppingListData;
 
 import java.util.List;
@@ -16,9 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
-    private List<ShoppingListData> datas;
+    private List<OrderDetailResponseData> datas;
 
-    public ShoppingListAdapter(List<ShoppingListData> datas){ this.datas = datas; }
+    public ShoppingListAdapter(List<OrderDetailResponseData> datas){ this.datas = datas; }
 
     @NonNull
     @Override
@@ -32,7 +33,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListAdapter.ViewHolder holder, int position) {
-        holder.menu.setText(String.valueOf(datas.get(position).getMenu()));
+        holder.menu.setText(String.valueOf(datas.get(position).getMenuName()));
         holder.count.setText(String.valueOf(datas.get(position).getCount()));
     }
 

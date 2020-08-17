@@ -65,13 +65,16 @@ public class addMenuDetailActivity extends AppCompatActivity {
         if(isAddImage){
             EditText editMenu = findViewById(R.id.text_menu);
             menuName = editMenu.getText().toString();
+            Log.e("menuName", menuName);
             Spinner spinner = findViewById(R.id.spinner_category);
             int category = new CategoryConverter().toIntConvert(spinner.getSelectedItem().toString());
             EditText editPrice = findViewById(R.id.text_price);
-            int price = Integer.getInteger(editPrice.getText().toString());
+            Log.e("price", editPrice.getText().toString());
+            int price = Integer.parseInt(editPrice.getText().toString());
             EditText editInfo = findViewById(R.id.text_info);
             String info = editInfo.getText().toString();
             networkPost(menuName, category, imageUrl, price, info);
+            Log.e("test1","test1") ;
         }
         else{
             // make toast
@@ -85,7 +88,10 @@ public class addMenuDetailActivity extends AppCompatActivity {
         service.ownerAddMenu(data).enqueue(new Callback<AddMenuResponse>() {
             @Override
             public void onResponse(Call<AddMenuResponse> call, Response<AddMenuResponse> response) {
-                Log.e("success flag", String.valueOf(response.body().getCode()));
+                if(response.body() == null){
+                    Log.e("isNull", "yes");
+                }
+                Log.e("menu register success", String.valueOf(response.code()));
             }
 
             @Override
@@ -113,28 +119,21 @@ public class addMenuDetailActivity extends AppCompatActivity {
                     ImageView imageView = findViewById(R.id.image_addmenu);
                     imageView.setImageBitmap(bmImage);
 
-
                     File storage = this.getCacheDir(); // 이 부분이 임시파일 저장 경로
-
+                    EditText editMenu = findViewById(R.id.text_menu);
+                    menuName = editMenu.getText().toString();
                     String fileName = getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE).getString("ownerEmail","err")+ menuName + ".jpg";  // 파일이름은 마음대로!
-
                     File tempFile = new File(storage,fileName);
-
                     try{
                         tempFile.createNewFile();  // 파일을 생성해주고
-
                         FileOutputStream out = new FileOutputStream(tempFile);
-
                         bmImage.compress(Bitmap.CompressFormat.JPEG, 90 , out);  // 넘거 받은 bitmap을 jpeg(손실압축)으로 저장해줌
-
                         out.close(); // 마무리로 닫아줍니다.
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     in.close();
                     uploadImageToS3(tempFile);
                     isAddImage = true;
@@ -162,7 +161,8 @@ public class addMenuDetailActivity extends AppCompatActivity {
                 .s3Client(new AmazonS3Client(credentialsProvider, Region.getRegion(Regions.AP_NORTHEAST_2))).build();
 
         TransferObserver uploadObserver = transferUtility.upload(bucket_path+image.getName(), image, CannedAccessControlList.PublicRead);
-
+        imageUrl = bucket_path+image.getName();
+        Log.e("imageName", image.getName());
         Log.e("upload key", bucket_path+image.getName());
         uploadObserver.setTransferListener(new TransferListener() {
             @Override

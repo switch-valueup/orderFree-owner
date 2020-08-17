@@ -1,15 +1,25 @@
 package com.example.userapplication.UI.mainview.menu;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.bumptech.glide.Glide;
 import com.example.userapplication.R;
+import com.example.userapplication.UI.mainview.menu.data.AddMenuData;
+import com.example.userapplication.UI.mainview.menu.data.AddMenuResponse;
 import com.example.userapplication.UI.mainview.menu.data.MenuDetailData;
 import com.example.userapplication.UI.mainview.menu.data.MenuDetailResponse;
 import com.example.userapplication.UI.mainview.menu.data.MenuDetailResponseData;
@@ -25,6 +35,11 @@ import retrofit2.Response;
 public class editMenuActivity extends AppCompatActivity {
     private ServiceApi service;
     private MenuDetailResponseData menuDetail;
+    private String editedMenu;
+    private int editedCategory;
+    private String editedImage;
+    private int editedPrice;
+    private String editedInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +83,46 @@ public class editMenuActivity extends AppCompatActivity {
         menuName.setText(menuDetail.getMenuName());
         category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
         Glide.with(this).load(menuDetail.getImgUrl()).into(image);
-        price.setText(menuDetail.getPrice());
+        price.setText(String.valueOf(menuDetail.getPrice()));
         description.setText(menuDetail.getInfo());
+    }
+    
+
+    // TODO reselect image
+    public String imageEdit(){
+        return null;
+    }
+
+    public void getEditedInfo(){
+        TextView menuName = findViewById(R.id.text_store);
+        Button category = findViewById(R.id.text_category);
+        ImageView image = findViewById(R.id.image_addmenu);
+        EditText price = findViewById(R.id.text_price);
+        EditText info = findViewById(R.id.text_info);
+
+        // TODO binding image
+        editedMenu = menuName.getText().toString();
+        editedCategory = new CategoryConverter().toIntConvert(category.getText().toString());
+        editedImage = imageEdit();
+        editedPrice = Integer.getInteger(price.getText().toString());
+        editedInfo = info.getText().toString();
+    }
+
+    public void editRegister(View view){
+        getEditedInfo();
+        AddMenuData data = new AddMenuData(
+                getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE).getString("ownerEmail","err"),
+                editedMenu, editedCategory, editedImage, editedPrice, editedInfo, getIntent().getStringExtra("menuName"));
+        service.ownerAddMenu(data).enqueue(new Callback<AddMenuResponse>() {
+            @Override
+            public void onResponse(Call<AddMenuResponse> call, Response<AddMenuResponse> response) {
+                Log.e("success flag", String.valueOf(response.body().getCode()));
+            }
+
+            @Override
+            public void onFailure(Call<AddMenuResponse> call, Throwable t) {
+                Log.e("fail flag", t.getMessage());
+            }
+        });
     }
 }
