@@ -184,28 +184,28 @@ public class SellStatusActivity extends AppCompatActivity {
         }
 
          private void getData(SelldataRequest data) {
-              service.ownerSellData(data).enqueue(new Callback<SelldataResponse>() {
-                 @Override
-                 public void onResponse(Call<SelldataResponse> call, Response<SelldataResponse> response) {
-                 SelldataResponse result = response.body();
-                 List<Selldata> list=new ArrayList<>();
-                 if (result.getCode()==200) { //서버로부터 data에 일치하는 sell data 받음
-                     //menu(string), count(int), price(int)
-                     list.clear();
-                     list = result.getObject();
-                     recyclerView = (RecyclerView)findViewById(R.id.recylerView); //아이디 연결
-                     recyclerView.setHasFixedSize(true); // 리사이클뷰 기존성능 강화
-                     layoutManager = new LinearLayoutManager(getApplicationContext());
-                     recyclerView.setLayoutManager(layoutManager);
-                     adapter = new SellAdapter(list);
-                     recyclerView.setAdapter(adapter);
-                     adapter.notifyDataSetChanged();
-                     Log.v("getData2","getData2");
-                      mSellCountView.setText(Integer.toString(adapter.getItemCount()));
-                      mTotalAmountView.setText(Integer.toString(getItemTotalAmount(list)));
-                     //리사이클러뷰에 어댑터 연결
-                  }
-             }
+        service.ownerSellData(data).enqueue(new Callback<SelldataResponse>() {
+            @Override
+            public void onResponse(Call<SelldataResponse> call, Response<SelldataResponse> response) {
+                SelldataResponse result = response.body();
+                List<Selldata> list=new ArrayList<>();
+                if (result.getCode()==200) { //서버로부터 data에 일치하는 sell data 받음
+                    //menu(string), count(int), price(int)
+                    list.clear();
+                    list = result.getObject();
+                    recyclerView = (RecyclerView)findViewById(R.id.recylerView); //아이디 연결
+                    recyclerView.setHasFixedSize(true); // 리사이클뷰 기존성능 강화
+                    layoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(layoutManager);
+                    adapter = new SellAdapter(list);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    Log.v("getData2","getData2");
+                    mSellCountView.setText(Integer.toString(adapter.getItemCount()));
+                    mTotalAmountView.setText(Integer.toString(getItemTotalAmount(list)));
+                    //리사이클러뷰에 어댑터 연결
+                }
+            }
 
             @Override
             public void onFailure(Call<SelldataResponse> call, Throwable t) {

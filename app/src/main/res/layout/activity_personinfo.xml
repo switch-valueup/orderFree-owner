@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@color/background"
+    android:orientation="vertical"
     tools:context="com.example.userapplication.mainview.activity.personInfoActivity">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+
+        android:layout_marginStart="28dp"
+
+        android:layout_marginTop="28dp"
+        android:gravity="center|right"
+        android:text="주소 등록"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
     <TextView
         android:id="@+id/goback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
         android:clickable="true"
         android:gravity="center"
 
@@ -22,86 +33,80 @@
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
 
         android:text="내 정보 수정"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="20dp"
         android:background="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105" />
+
 
     <TextView
         android:id="@+id/ownerName"
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_width="337dp"
+        android:layout_height="42dp"
         android:layout_gravity="center"
-        android:layout_marginStart="15pt"
-        android:layout_marginEnd="15pt"
+        android:layout_marginTop="40dp"
         android:background="#A6A6A6"
-        android:gravity="center_vertical"
 
+        android:gravity="center_vertical"
         android:paddingLeft="5dp"
         android:textColor="@color/design_default_color_background"
-        android:textSize="20dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.201" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/Email"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="7pt"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+
         android:gravity="center|right"
         android:text="이메일"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ownerName" />
-
 
     <TextView
         android:id="@+id/info_email_tv"
         android:layout_width="254dp"
         android:layout_height="35dp"
-
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="15dp"
-
-        android:textColor="#ffffff"
+        android:text="Email@example.com"
+        android:layout_marginTop="48dp"
         android:inputType="text"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toEndOf="@+id/Email"
         app:layout_constraintTop_toBottomOf="@+id/ownerName" />
 
     <EditText
@@ -110,46 +115,44 @@
         android:layout_height="35dp"
         android:layout_gravity="center"
 
-        android:background="#A6A6A6"
+        android:layout_marginTop="20dp"
 
+        android:layout_marginEnd="16dp"
+        android:background="#A6A6A6"
         android:gravity="center_vertical"
+
         android:textColor="@color/design_default_color_background"
         android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/change_password_btn"
+        app:layout_constraintTop_toBottomOf="@+id/info_email_tv" />
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/info_email_tv"
-        app:layout_constraintVertical_bias="0.034" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginStart="7pt"
-        android:layout_marginTop="12dp"
+
+        android:layout_marginTop="20dp"
 
         android:gravity="center|right"
-
         android:text="비밀번호"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintEnd_toStartOf="@+id/info_password_tv"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/Email" />
 
-    <TextView
-        android:id="@+id/info_enrollment_tv"
-        android:layout_width="166dp"
+    <EditText
+        android:id="@+id/storename_erollment"
+        android:layout_width="256dp"
         android:layout_height="35dp"
 
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:hint=""
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:hint="가게이름을 입력해주세요"
         android:inputType="text"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/info_password_tv" />
 
@@ -157,116 +160,103 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginStart="7pt"
-        android:layout_marginTop="12dp"
 
+        android:layout_marginStart="28dp"
+
+        android:layout_marginTop="24dp"
         android:gravity="center|right"
-
-        android:text="가게등록"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.013"
+        android:text="가게 이름"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <Button
-        android:id="@+id/searchAdd_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:text="주소검색"
-        android:textSize="5pt"
-
-        app:layout_constraintBottom_toTopOf="@+id/info_address_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
-        app:layout_constraintStart_toEndOf="@+id/info_enrollment_tv"
-        app:layout_constraintTop_toBottomOf="@+id/change_password_btn"
-        app:layout_constraintVertical_bias="0.413" />
-
-    <TextView
-        android:id="@+id/info_address_tv"
+    <EditText
+        android:id="@+id/specific_address"
         android:layout_width="254dp"
         android:layout_height="35dp"
 
-        android:layout_marginStart="16dp"
-        android:hint=""
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:hint="상세주소를 입력해주세요"
         android:inputType="text"
-        android:layout_marginRight="15dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.297"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/info_enrollment_tv"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintTop_toBottomOf="@+id/search_address_tv" />
+
+    <TextView
+        android:id="@+id/search_address_tv"
+        android:layout_width="254dp"
+        android:layout_height="35dp"
+
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:hint="도로명 주소 찾기"
+        android:inputType="text"
+
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.297"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/storename_erollment" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginStart="7pt"
-        android:layout_marginTop="12dp"
 
+        android:layout_marginStart="28dp"
+
+        android:layout_marginTop="28dp"
         android:gravity="center|right"
-
-        android:text="상세주소"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.013"
+        android:text="상세 주소"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
         android:id="@+id/change_password_btn"
         android:layout_width="73dp"
         android:layout_height="37dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="36dp"
         android:gravity="center"
-        android:text="변경"
         android:onClick="mOnPopupClick"
 
-        android:textSize="5pt"
+        android:text="변경"
 
-        app:layout_constraintBottom_toTopOf="@+id/info_enrollment_tv"
+        android:textSize="5pt"
+        app:layout_constraintBottom_toTopOf="@+id/storename_erollment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toEndOf="@+id/info_password_tv"
-        app:layout_constraintTop_toBottomOf="@+id/info_email_tv"
-        app:layout_constraintVertical_bias="0.642" />
+        app:layout_constraintTop_toBottomOf="@+id/info_email_tv" />
 
     <Button
         android:id="@+id/witdrawal_btn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+
         android:background="#00ff0000"
         android:text="회원탈퇴"
         android:textColor="#ffffff"
-
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/complete_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintStart_toEndOf="@+id/logout_btn"
+        app:layout_constraintTop_toBottomOf="@+id/specific_address"
+        app:layout_constraintVertical_bias="0.654" />
 
     <Button
         android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginStart="80dp"
         android:background="#00ff0000"
-        android:text="로그아웃"
 
+        android:text="로그아웃"
         android:textColor="#ffffff"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintBottom_toTopOf="@+id/complete_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintTop_toBottomOf="@+id/specific_address"
+        app:layout_constraintVertical_bias="0.663" />
 
     <Button
         android:id="@+id/complete_btn"
@@ -275,9 +265,8 @@
         android:text="완료"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintVertical_bias="0.937" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -131,7 +131,6 @@
         app:layout_constraintTop_toBottomOf="@+id/기간선택"
         app:layout_constraintVertical_bias="0.01" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylerView"
         android:layout_width="320dp"
@@ -140,12 +139,52 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/판매내역"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintVertical_bias="0.104">
+
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주문날짜"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/recylerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/판매내역"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+    android:id="@+id/number"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="주문번호"
+    android:textColor="#ffffff"
+    app:layout_constraintBottom_toTopOf="@+id/recylerView"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.25"
+    app:layout_constraintStart_toEndOf="@+id/date"
+    app:layout_constraintTop_toBottomOf="@+id/판매내역"
+    app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="판매액"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/recylerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/number"
+        app:layout_constraintTop_toBottomOf="@+id/판매내역"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/주문횟수"

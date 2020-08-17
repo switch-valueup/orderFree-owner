@@ -39,7 +39,8 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.SellViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SellViewHolder holder, int position) {
-        holder.textView_number.setText(String.valueOf(list.get(position).getCount()));
+        holder.textView_date.setText(list.get(position).getOrderedDate());
+        holder.textView_number.setText(String.valueOf(list.get(position).getOrderNum()));
         holder.textView_price.setText(String.valueOf(list.get(position).getPrice()));
     }
 
@@ -51,9 +52,11 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.SellViewHolder
     public class SellViewHolder extends RecyclerView.ViewHolder {
         TextView textView_number;
         TextView textView_price;
+        TextView textView_date;
 
         public SellViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.textView_date=itemView.findViewById(R.id.textview_date);
             this.textView_number=itemView.findViewById(R.id.textview_number);
             this.textView_price=itemView.findViewById(R.id.textview_price);
         }

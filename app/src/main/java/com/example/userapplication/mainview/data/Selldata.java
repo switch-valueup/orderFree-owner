@@ -11,6 +11,13 @@ public class Selldata {
     @SerializedName("price")
     private int price;
 
+    @SerializedName("orderedDate")
+    private String orderedDate;
+
+    @SerializedName("orderNum")
+    private int orderNum;
+
+
     public Selldata(int count,int price)
     {
         this.count=count;
@@ -25,11 +32,17 @@ public class Selldata {
         this.price = price;
     }
 
-    public int getPrice() {
-        return price;
-    }
+    public int getPrice() { return price; }
 
     public int getCount() {
         return count;
+    }
+
+    public String getOrderedDate() {
+        return orderedDate.substring(0,10);
+    }
+
+    public int getOrderNum() {
+        return orderNum;
     }
 }

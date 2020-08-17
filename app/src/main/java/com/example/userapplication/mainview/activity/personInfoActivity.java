@@ -25,6 +25,8 @@ import com.example.userapplication.login.network.RetrofitClient;
 import com.example.userapplication.login.network.ServiceApi;
 import com.example.userapplication.mainview.data.CheckPasswordData;
 import com.example.userapplication.mainview.data.CheckPasswordResponse;
+import com.example.userapplication.mainview.data.EnrollmentAddressRequest;
+import com.example.userapplication.mainview.data.EnrollmentAddressResponse;
 
 
 import retrofit2.Call;
@@ -39,38 +41,55 @@ public class personInfoActivity extends AppCompatActivity {
     private Button mLogoutButton;
     private Button mWitdrawalButton;
     private Button mChangePasswordButton;
-    private Button mSearchAddressButton;
     private Button mCompleteButton;
+    private EditText mSpecificAddress;
+    private TextView mSearchAddressTextView;
+    private EditText mStoreNameEnrollment;
     private TextView mOwnerEmailView;
-    private TextView mEnrollmentView;
-    private TextView mAddressView;
+
     private TextView mGobackView;
     private EditText mPasswordCheckView;
     private ServiceApi service;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String specificAddress;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personinfo);
 
-        mPasswordCheckView=(EditText) findViewById(R.id.info_password_tv);
-
+        mPasswordCheckView=(EditText) findViewById(R.id.info_password_tv); //원래 비밀번호 입력 tv
+        mStoreNameEnrollment=(EditText)findViewById(R.id.storename_erollment); // 가게 이름 등록 textview
+        mSearchAddressTextView=(TextView)findViewById(R.id.search_address_tv); //도로명 주소 찾기 textview
         mGobackView = (TextView) findViewById(R.id.goback);
         mOwnerNameView = (TextView) findViewById(R.id.ownerName) ;
-        mSearchAddressButton = (Button)findViewById(R.id.searchAdd_btn);
         mChangePasswordButton=(Button)findViewById(R.id.change_password_btn);
         mLogoutButton = (Button) findViewById(R.id.logout_btn);
         mWitdrawalButton = (Button)findViewById(R.id.witdrawal_btn);
         mLogoutButton.setPaintFlags(mLogoutButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);//버튼 밑줄 긋기
         mWitdrawalButton.setPaintFlags(mWitdrawalButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);//버튼 밑줄 긋기
-        mCompleteButton = (Button)findViewById(R.id.complete_btn);
-        mOwnerEmailView =(TextView)findViewById(R.id.info_email_tv);
-        mEnrollmentView = (TextView)findViewById(R.id.info_enrollment_tv);
-        mEnrollmentView.setPaintFlags(mEnrollmentView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        mAddressView = (TextView)findViewById(R.id.info_address_tv);
-        mAddressView.setPaintFlags(mAddressView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        mCompleteButton = (Button)findViewById(R.id.complete_btn); // 완료 버튼
+        mOwnerEmailView =(TextView)findViewById(R.id.info_email_tv); //사용자 이메일 보여주는 tv
+        mSpecificAddress = (EditText)findViewById(R.id.specific_address); //상세주소 입력 editText
+
+
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
+
+        Intent intent = getIntent();
+        String address = intent.getStringExtra("addr");
+        String ownerName = intent.getStringExtra("ownerName");
+        String ownerEmail = intent.getStringExtra("ownerEmail");
+
+        if(intent.hasExtra("ownerName")) {
+            mOwnerNameView.setText(ownerName);
+        }
+        if(intent.hasExtra("ownerEmail")) {
+            mOwnerEmailView.setText(ownerEmail);
+        }
+        if(intent.hasExtra("addr"))
+            mSearchAddressTextView.setText(address);
 
         //뒤로 가기 버튼 눌렀을 때 전 레이아웃인 메인화면으로 전환
         mGobackView.setOnClickListener(new View.OnClickListener() {
@@ -84,22 +103,23 @@ public class personInfoActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        String ownerName = intent.getStringExtra("ownerName");
-        String ownerEmail = intent.getStringExtra("ownerEmail");
 
-        if(intent.hasExtra("ownerName")) {
-            mOwnerNameView.setText(ownerName);
-        }
-        if(intent.hasExtra("ownerEmail")) {
-            mOwnerEmailView.setText(ownerEmail);
-        }
 
-        mSearchAddressButton.setOnClickListener(new View.OnClickListener(){
+        mSearchAddressTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                Intent intent = new Intent(getApplicationContext(), daumWebViewActivity.class);
-               startActivityForResult(intent,SEARCH_ADDRESS_ACTIVITY);
+               intent.putExtra("ownerName",ownerName);
+               intent.putExtra("ownerEmail",ownerEmail);
+               startActivity(intent);
+            }
+        });
+
+        mCompleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mOwnerEmailView.setText(ownerEmail);
+                confirmEnrollmentAddress(new EnrollmentAddressRequest(mOwnerEmailView.getText().toString(),mStoreNameEnrollment.getText().toString(),mSearchAddressTextView.getText().toString()+" "+mSpecificAddress.getText().toString()));
             }
         });
 
@@ -107,7 +127,6 @@ public class personInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AccountDeleteActivity.class);
-                intent.putExtra("ownerEmail",ownerEmail);
                 startActivity(intent);
             }
         });
@@ -166,6 +185,29 @@ public class personInfoActivity extends AppCompatActivity {
             startChangePassword(new CheckPasswordData(ownerEmail, password));
         }
     }
+
+    private void confirmEnrollmentAddress(EnrollmentAddressRequest data){
+        service.erollmentAddress(data).enqueue(new Callback<EnrollmentAddressResponse>(){
+            @Override
+            public void onResponse(Call<EnrollmentAddressResponse> call, Response<EnrollmentAddressResponse> response){
+                EnrollmentAddressResponse result = response.body();
+                if(result.getCode()==201) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Toast.makeText(personInfoActivity.this, "주소등록 완료", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EnrollmentAddressResponse> call, Throwable t) {
+                Toast.makeText(personInfoActivity.this, "주소등록 에러", Toast.LENGTH_SHORT).show();
+                Log.e("주소등록 에러", t.getMessage());
+            }
+        });
+    }
+
+
+
 
     private void startChangePassword(CheckPasswordData data){
         service.ownerCheckPassowrd(data).enqueue(new Callback<CheckPasswordResponse>(){

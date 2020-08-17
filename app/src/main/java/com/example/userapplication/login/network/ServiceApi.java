@@ -16,6 +16,8 @@ import com.example.userapplication.login.data.LoginData;
 import com.example.userapplication.login.data.LoginResponse;
 import com.example.userapplication.mainview.data.CheckPasswordData;
 import com.example.userapplication.mainview.data.CheckPasswordResponse;
+import com.example.userapplication.mainview.data.EnrollmentAddressRequest;
+import com.example.userapplication.mainview.data.EnrollmentAddressResponse;
 import com.example.userapplication.mainview.data.SelldataRequest;
 import com.example.userapplication.mainview.data.SelldataResponse;
 
@@ -48,7 +50,12 @@ public interface ServiceApi {
     @POST("/main/info/checkpwd")
     Call<CheckPasswordResponse> ownerCheckPassowrd(@Body CheckPasswordData data);
 
-    @POST("owner/login/changepwd")
+    @POST("/owner/login/changepwd")
     Call<ChangePasswordResponse> ownerChangePassword(@Body ChangePasswordData data);
+
+    @POST("/main/info/registore")
+    Call<EnrollmentAddressResponse> erollmentAddress(@Body EnrollmentAddressRequest data);
+
+
 
 }
