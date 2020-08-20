@@ -9,7 +9,7 @@ public class MenuDetailResponseData {
     @SerializedName("category")
     private int category;
 
-    @SerializedName("imgUrl")
+    @SerializedName("imgURL")
     private String imgUrl;
 
     @SerializedName("price")

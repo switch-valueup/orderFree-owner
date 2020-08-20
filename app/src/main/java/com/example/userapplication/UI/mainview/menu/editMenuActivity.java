@@ -9,14 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.bumptech.glide.Glide;
+import com.example.userapplication.GlideApp;
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.menu.data.AddMenuData;
 import com.example.userapplication.UI.mainview.menu.data.AddMenuResponse;
@@ -82,7 +76,8 @@ public class editMenuActivity extends AppCompatActivity {
 
         menuName.setText(menuDetail.getMenuName());
         category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
-        Glide.with(this).load(menuDetail.getImgUrl()).into(image);
+        GlideApp.with(this).load(menuDetail.getImgUrl()).into(image);
+        Log.e("image url", menuDetail.getImgUrl());
         price.setText(String.valueOf(menuDetail.getPrice()));
         description.setText(menuDetail.getInfo());
     }
