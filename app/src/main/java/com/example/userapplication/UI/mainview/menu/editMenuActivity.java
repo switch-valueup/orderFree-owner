@@ -39,7 +39,6 @@ public class editMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editmenu);
         service = RetrofitClient.getClient().create(ServiceApi.class);
-        getMenuInfo();
         Log.e("test","test");
     }
 
@@ -73,12 +72,22 @@ public class editMenuActivity extends AppCompatActivity {
         EditText price = findViewById(R.id.text_price);
         EditText description = findViewById(R.id.text_info);
 
-        menuName.setText(menuDetail.getMenuName());
-        category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
-        GlideApp.with(this).load(menuDetail.getImgUrl()).into(image);
-        Log.e("image url", menuDetail.getImgUrl());
-        price.setText(String.valueOf(menuDetail.getPrice()));
-        description.setText(menuDetail.getInfo());
+        // Test code to test without server
+        if(menuDetail == null){
+            menuName.setText("test menu name");
+            category.setText(new CategoryConverter().toStringConvert(0));
+            GlideApp.with(this).load("https://valueup.s3.ap-northeast-2.amazonaws.com/https%3A//s3.ap-northeast-2.amazonaws.com/valueup/gouneebb%40gmail.comtest.jpg").into(image);
+            price.setText(String.valueOf(5000));
+            description.setText("test information");
+        }
+        else{
+            menuName.setText(menuDetail.getMenuName());
+            category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
+            GlideApp.with(this).load(menuDetail.getImgUrl()).into(image);
+            Log.e("image url", menuDetail.getImgUrl());
+            price.setText(String.valueOf(menuDetail.getPrice()));
+            description.setText(menuDetail.getInfo());
+        }
     }
 
 
