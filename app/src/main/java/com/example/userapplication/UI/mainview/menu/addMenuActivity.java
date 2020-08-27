@@ -30,16 +30,28 @@ public class addMenuActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager rlayoutManager;
     private List<MenuListResponseData> datas;
     private ServiceApi service;
-    private boolean drawerOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_menu);
-        drawerOn = false;
         service = RetrofitClient.getClient().create(ServiceApi.class);
         menuList();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+               getAlignedData(data.getIntExtra("result",0));
+            }
+            else {
+
+            }
+        }
+    }
+
 
     // when clicked add menu button
     public void addMenu(View view){
@@ -48,29 +60,8 @@ public class addMenuActivity extends AppCompatActivity {
     }
 
     public void menuAlign(View view){
-        drawerOn = !drawerOn;
-        if(drawerOn){
-
-        }
-        else{
-
-        }
-    }
-
-    public void getAlignedData(int category){
-        String ownerEmail = getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE).getString("ownerEmail","err");
-        MenuAlignData menuAlignData = new MenuAlignData(ownerEmail, category);
-        service.ownerMenuAlign(menuAlignData).enqueue(new Callback<MenuAlignResponse>() {
-            @Override
-            public void onResponse(Call<MenuAlignResponse> call, Response<MenuAlignResponse> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<MenuAlignResponse> call, Throwable t) {
-
-            }
-        });
+        Intent intent = new Intent(this, MenuAlignActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     public void addMenuBack(View view){
@@ -99,6 +90,28 @@ public class addMenuActivity extends AppCompatActivity {
             public void onFailure(Call<MenuListResponse> call, Throwable t) {
                 Log.e("flag","failure");
                 Log.e("menuListErr",t.getMessage());
+
+            }
+        });
+    }
+
+    public void getAlignedData(int category){
+        String ownerEmail = getSharedPreferences("autoLoginRecord", Context.MODE_PRIVATE).getString("ownerEmail","err");
+        MenuAlignData menuAlignData = new MenuAlignData(ownerEmail, category);
+        service.ownerMenuAlign(menuAlignData).enqueue(new Callback<MenuAlignResponse>() {
+            @Override
+            public void onResponse(Call<MenuAlignResponse> call, Response<MenuAlignResponse> response) {
+                datas = response.body().getResultAlign();
+                recyclerView = (RecyclerView)findViewById(R.id.menu_recycler);
+                recyclerView.setHasFixedSize(true);
+                rlayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(rlayoutManager);
+                rAdapter = new addMenuAdapter(datas);
+                recyclerView.setAdapter(rAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<MenuAlignResponse> call, Throwable t) {
 
             }
         });

@@ -2,6 +2,8 @@ package com.example.userapplication.UI.mainview.menu.data;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MenuAlignResponse {
     @SerializedName("ownerEmail")
     private String ownerEmail;
@@ -10,7 +12,7 @@ public class MenuAlignResponse {
     private int category;
 
     @SerializedName("resultAlign")
-    private MenuAlignResponseData resultAlign;
+    private List<MenuListResponseData> resultAlign;
 
     public String getOwnerEmail() {
         return ownerEmail;
@@ -20,7 +22,7 @@ public class MenuAlignResponse {
         return category;
     }
 
-    public MenuAlignResponseData getResultAlign() {
+    public List<MenuListResponseData> getResultAlign() {
         return resultAlign;
     }
 }

@@ -8,5 +8,14 @@
         <!-- 상태바 색상 변경-->
         <item name="android:statusBarColor">#000</item>
     </style>
+    
+    <style name="Transparent" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>
