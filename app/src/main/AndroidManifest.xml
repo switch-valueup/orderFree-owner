@@ -11,13 +11,13 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".UI.mainview.menu.addMenuActivity">
+        <activity android:name=".UI.login.activity.SplashActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".UI.login.activity.SplashActivity" />
+        <!-- <activity android:name=".UI.login.activity.SplashActivity" /> -->
         <activity android:name=".UI.login.activity.LoginActivity"/>
         <activity android:name=".UI.login.activity.JoinActivity" />
         <activity android:name=".UI.login.activity.MainActivity" />
@@ -29,7 +29,7 @@
         <activity android:name=".UI.mainview.activity.daumWebViewActivity"/>
         <activity android:name=".UI.login.activity.AccountDeleteActivity"/>
         <activity android:name=".UI.login.activity.ChangePasswordActivity" android:theme="@android:style/Theme.Dialog" />
-        <!-- <activity android:name=".UI.mainview.menu.addMenuActivity"/> -->
+        <activity android:name=".UI.mainview.menu.addMenuActivity"/>
         <activity android:name=".UI.mainview.menu.addMenuDetailActivity"/>
         <activity android:name=".UI.mainview.menu.editMenuActivity" />
         <activity android:name=".UI.mainview.order.orderlistActivity"/>

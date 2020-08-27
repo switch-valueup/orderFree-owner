@@ -11,10 +11,10 @@ public class CategoryConverter {
     }
     public int toIntConvert(String category){
         int result = -1;
-        if (category == "단품메뉴") result = 0;
-        if (category == "세트메뉴") result = 1;
-        if (category == "음료메뉴") result = 2;
-        if (category == "사이드메뉴") result = 3;
+        if (category.equals("단품메뉴")) result = 0;
+        if (category.equals("세트메뉴")) result = 1;
+        if (category.equals("음료메뉴")) result = 2;
+        if (category.equals("사이드메뉴")) result = 3;
         return result;
     }
 }
