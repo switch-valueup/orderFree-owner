@@ -121,7 +121,7 @@
                         android:textStyle="bold">
                     </TextView>
 
-                    <Button
+                    <Spinner
                         android:id="@+id/text_category"
                         android:layout_width="200dp"
                         android:layout_height="35dp"
@@ -129,11 +129,9 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginRight="20dp"
                         android:background="#A6A6A6"
-                        android:text="단품 메뉴"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="normal"
-                        android:textSize="20dp">
-                    </Button>
+                        android:entries="@array/category"
+                        >
+                    </Spinner>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.model.GlideUrl;
@@ -87,7 +88,7 @@ public class editMenuActivity extends AppCompatActivity {
 
     public void bindMenuInfo(){
         TextView menuName = findViewById(R.id.text_store);
-        Button category = findViewById(R.id.text_category);
+        Spinner category = findViewById(R.id.text_category);
         ImageView image = findViewById(R.id.image_addmenu);
         EditText price = findViewById(R.id.text_price);
         EditText description = findViewById(R.id.text_info);
@@ -95,14 +96,14 @@ public class editMenuActivity extends AppCompatActivity {
         // Test code to test without server
         if(menuDetail == null){
             menuName.setText("test menu name");
-            category.setText(new CategoryConverter().toStringConvert(0));
+            category.setSelection(menuDetail.getCategory());
             GlideApp.with(this).load("https://valueup.s3.ap-northeast-2.amazonaws.com/https%3A//s3.ap-northeast-2.amazonaws.com/valueup/gouneebb%40gmail.comtest.jpg").into(image);
             price.setText(String.valueOf(5000));
             description.setText("test information");
         }
         else{
             menuName.setText(menuDetail.getMenuName());
-            category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
+            category.setSelection(menuDetail.getCategory());
             GlideApp.with(this).load("https://valueup.s3.ap-northeast-2.amazonaws.com/" + menuDetail.getImgUrl()).into(image);
             //GlideApp.with(this).load("https://valueup.s3.ap-northeast-2.amazonaws.com/https%3A//s3.ap-northeast-2.amazonaws.com/valueup/gouneebb%40gmail.comtest.jpg").into(image);
             Log.e("image url", menuDetail.getImgUrl());
@@ -119,15 +120,17 @@ public class editMenuActivity extends AppCompatActivity {
 
     public void getEditedInfo(){
         TextView menuName = findViewById(R.id.text_store);
-        Button category = findViewById(R.id.text_category);
+        Spinner category = findViewById(R.id.text_category);
         ImageView image = findViewById(R.id.image_addmenu);
         EditText price = findViewById(R.id.text_price);
         EditText info = findViewById(R.id.text_info);
 
         // TODO binding image
         editedMenu = menuName.getText().toString();
-        editedCategory = new CategoryConverter().toIntConvert(category.getText().toString());
-        editedImage = imageEdit();
+        editedCategory = new CategoryConverter().toIntConvert(category.getSelectedItem().toString());
+        Log.e("category int", String.valueOf(new CategoryConverter().toIntConvert(category.getSelectedItem().toString())));
+        Log.e("category string", category.getSelectedItem().toString());
+        editedImage = menuDetail.getImgUrl();
         editedPrice = Integer.parseInt(price.getText().toString());
         editedInfo = info.getText().toString();
     }
