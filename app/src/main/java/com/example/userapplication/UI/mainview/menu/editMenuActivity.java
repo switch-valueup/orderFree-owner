@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.model.GlideUrl;
 import com.example.userapplication.GlideApp;
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.menu.data.AddMenuData;
@@ -39,7 +40,26 @@ public class editMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editmenu);
         service = RetrofitClient.getClient().create(ServiceApi.class);
+
+        Button backBtn = findViewById(R.id.editmenu_back_btn);
+        Button cancelBtn = findViewById(R.id.btn_edit_cancel);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         Log.e("test","test");
+        getMenuInfo();
     }
 
     public void getMenuInfo(){
@@ -83,7 +103,8 @@ public class editMenuActivity extends AppCompatActivity {
         else{
             menuName.setText(menuDetail.getMenuName());
             category.setText(new CategoryConverter().toStringConvert(menuDetail.getCategory()));
-            GlideApp.with(this).load(menuDetail.getImgUrl()).into(image);
+            GlideApp.with(this).load("https://valueup.s3.ap-northeast-2.amazonaws.com/" + menuDetail.getImgUrl()).into(image);
+            //GlideApp.with(this).load("https://valueup.s3.ap-northeast-2.amazonaws.com/https%3A//s3.ap-northeast-2.amazonaws.com/valueup/gouneebb%40gmail.comtest.jpg").into(image);
             Log.e("image url", menuDetail.getImgUrl());
             price.setText(String.valueOf(menuDetail.getPrice()));
             description.setText(menuDetail.getInfo());
@@ -107,7 +128,7 @@ public class editMenuActivity extends AppCompatActivity {
         editedMenu = menuName.getText().toString();
         editedCategory = new CategoryConverter().toIntConvert(category.getText().toString());
         editedImage = imageEdit();
-        editedPrice = Integer.getInteger(price.getText().toString());
+        editedPrice = Integer.parseInt(price.getText().toString());
         editedInfo = info.getText().toString();
     }
 
@@ -120,6 +141,7 @@ public class editMenuActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AddMenuResponse> call, Response<AddMenuResponse> response) {
                 Log.e("success flag", String.valueOf(response.body().getCode()));
+                finish();
             }
 
             @Override

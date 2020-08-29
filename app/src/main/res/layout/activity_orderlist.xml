@@ -27,6 +27,7 @@
         </TextView>
 
         <Button
+            android:id="@+id/orderlist_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -79,20 +80,6 @@
                 android:text="동국대"
                 android:textSize="20dp"
                 android:textColor="#000000"
-                android:textStyle="bold">
-            </TextView>
-
-            <TextView
-                android:id="@+id/text_store_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@+id/text_store_name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginLeft="6dp"
-                android:text="동국대학지점"
-                android:textSize="20dp"
-                android:textColor="#FFFFFF"
                 android:textStyle="bold">
             </TextView>
 

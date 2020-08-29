@@ -1,6 +1,7 @@
 package com.example.userapplication.UI.mainview.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -118,6 +119,12 @@ public class personInfoActivity extends AppCompatActivity {
         mCompleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                if(mStoreNameEnrollment.getText().toString() != null){
+                    SharedPreferences mPrefs = getSharedPreferences("ownerStore", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putString("storeName", mStoreNameEnrollment.getText().toString());
+                    editor.commit();
+                }
                 mOwnerEmailView.setText(ownerEmail);
                 confirmEnrollmentAddress(new EnrollmentAddressRequest(mOwnerEmailView.getText().toString(),mStoreNameEnrollment.getText().toString(),mSearchAddressTextView.getText().toString()+" "+mSpecificAddress.getText().toString()));
             }

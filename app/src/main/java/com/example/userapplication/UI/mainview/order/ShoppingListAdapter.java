@@ -32,7 +32,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public void onBindViewHolder(@NonNull ShoppingListAdapter.ViewHolder holder, int position) {
         holder.menu.setText(String.valueOf(datas.get(position).getMenuName()));
-        holder.count.setText(String.valueOf(datas.get(position).getCount()));
+        holder.count.setText(String.valueOf(datas.get(position).getCount())+"개");
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

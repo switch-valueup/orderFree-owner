@@ -3,6 +3,8 @@ package com.example.userapplication.UI.mainview.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.userapplication.R;
@@ -12,6 +14,8 @@ import com.example.userapplication.network.RetrofitClient;
 import com.example.userapplication.network.ServiceApi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +28,15 @@ public class foodreadyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodready);
         service = RetrofitClient.getClient().create(ServiceApi.class);
+        ConstraintLayout button = findViewById(R.id.btn_back_orderlist);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), orderlistActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         setOrderNumber();
         completeOrder();
     }

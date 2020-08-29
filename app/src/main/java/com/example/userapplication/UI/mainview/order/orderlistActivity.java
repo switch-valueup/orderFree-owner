@@ -3,6 +3,9 @@ package com.example.userapplication.UI.mainview.order;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.order.data.OrderListData;
@@ -31,6 +34,15 @@ public class orderlistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orderlist);
         service = RetrofitClient.getClient().create(ServiceApi.class);
+        TextView storeName = findViewById(R.id.text_store_name);
+        storeName.setText(getSharedPreferences("ownerStore", Context.MODE_PRIVATE).getString("storeName", "가게 미등록"));
+        Button backBtn = findViewById(R.id.orderlist_back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         getOrders();
     }
 

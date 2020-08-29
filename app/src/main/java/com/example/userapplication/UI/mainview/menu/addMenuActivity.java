@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.userapplication.R;
 import com.example.userapplication.UI.mainview.menu.data.MenuAlignData;
@@ -36,6 +37,8 @@ public class addMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_menu);
         service = RetrofitClient.getClient().create(ServiceApi.class);
+        TextView storeName = findViewById(R.id.text_store_name);
+        storeName.setText(getSharedPreferences("ownerStore", Context.MODE_PRIVATE).getString("storeName", "가게 미등록"));
         menuList();
     }
 

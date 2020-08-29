@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.userapplication.R;
@@ -37,6 +38,13 @@ public class orderDetailActivity extends AppCompatActivity {
         service = RetrofitClient.getClient().create(ServiceApi.class);
         Intent intent = getIntent();
         currentOrder = intent.getIntExtra("orderNum", 0);
+        Button backBtn = findViewById(R.id.orderdetail_back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         getShoppingList();
         bindingView(currentOrder);
     }
@@ -72,6 +80,7 @@ public class orderDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, foodreadyActivity.class);
         intent.putExtra("orderNumber", currentOrder);
         startActivity(intent);
+        finish();
     }
 
     public void getPreShoppingList(){
